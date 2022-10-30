@@ -1,0 +1,49 @@
+We plan to examine several potential methods that can improve the task performance of entity resolution. 
+First, we want to investigate whether the incorporation of additional external knowledge (e.g., WikiData) can help improve PLMs' ability in handling entity resolution tasks; Second, we want to propose a new method to better incorporate useful information as a signal for entity resolution.
+
+We will experiment on thirteen open-access datasets used by DeepMatcher~\cite{mudgal_deep_2018} and Ditto~\cite{li_deep_2020}. We summarize the statistics of these datasets in Table~\ref{tab:exp-data}.
+
+
+\begin{table}[h]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|c|l|c|c|c|c|}
+\hline
+\textbf{Data Type}          & \multicolumn{1}{c|}{\textbf{Datasets}} & \textbf{Domains} & \textbf{Size} & \textbf{\# Positive} & \textbf{\# Attributes} \\ \hline
+\multirow{7}{*}{Structured} & Amazon-Google                          & software         & 11,460        & 1,167                & 3                      \\ \cline{2-6} 
+                            & Walmart-Amazon                         & electronics      & 10,242        & 962                  & 5                      \\ \cline{2-6} 
+                            & DBLP-Scholar                           & citation         & 28,707        & 5,347                & 4                      \\ \cline{2-6} 
+                            & DBLP-ACM                               & citation         & 12,363        & 2,220                & 4                      \\ \cline{2-6} 
+                            & iTunes-Amazon                          & music            & 539           & 132                  & 8                      \\ \cline{2-6} 
+                            & BeerAdvo-RateBeer                      & beer             & 450           & 68                   & 4                      \\ \cline{2-6} 
+                            & Fodors-Zagats                          & restaurant       & 946           & 110                  & 6                      \\ \hline
+\multirow{2}{*}{Textual}    & Abt-Buy                                & product          & 9,575         & 1,028                & 3                      \\ \cline{2-6} 
+                            & Company                                & company          & 112,632       & 28,200               & 1                      \\ \hline
+\multirow{4}{*}{Dirty}      & iTunes-Amazon                          & music            & 539           & 132                  & 8                      \\ \cline{2-6} 
+                            & DBLP-ACM                               & citation         & 12,363        & 2,220                & 4                      \\ \cline{2-6} 
+                            & DBLP-Scholar                           & citation         & 28,707        & 5,347                & 4                      \\ \cline{2-6} 
+                            & Walmart-Amazon                         & electronics      & 10,242        & 962                  & 5                      \\ \hline
+\end{tabular}%
+}
+\caption{Datasets summary}
+\label{tab:exp-data}
+\end{table}
+We have created and implemented the experimental framework, and performed several initial experiments as a proof of concept. The preliminary results are encouraging and seem to support our hypothesis, i.e.,  that introducing additional knowledge can improve the performance of using PLMs for entity resolution. Additionally, we also find that additional domain knowledge introduced has exhibited a stronger improvement over ER tasks with a relatively limited amount of available training data (as in Table 1, iTunes-Amazon).
+	
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[!h]
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{l|ccc}
+\hline
+                       & \multicolumn{3}{c}{\textbf{Datasets}}                                                                                                                                                                                         \\ \hline
+                       & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}DBLP-GoogleScholar \\ (N=17,223)\end{tabular}}} & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Abt-Buy \\ (N=5,743)\end{tabular}}} & \textbf{\begin{tabular}[c]{@{}c@{}}iTunes-Amazon\\ (N=321)\end{tabular}} \\ \hline
+Ditto                  & \multicolumn{1}{c|}{0.944}                               & \multicolumn{1}{c|}{0.824}                                                               & 0.625                                                                    \\ \hline
+Ditto + EL & \multicolumn{1}{c|}{0.946}                               & \multicolumn{1}{c|}{0.831}                                                               & 0.720                                                                    \\ \hline
+\end{tabular}%
+}
+\caption{Preliminary experimental results (F1 scores): entity linking exhibits more improvements over smaller datasets.}
+\label{tab:exp-results}
+\end{table}
+% Table 1. preliminary experiment results (F1 scores); Entity linking exhibits better improvement over smaller dataset;
+

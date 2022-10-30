@@ -1,0 +1,30 @@
+% TODO: dataset statistic table
+\subsection{Dataset}
+
+We report experiment results over the Magellan datasets \cite{magellandata}. The data collection contains datasets designed for entity matching tasks across various domains. The overview of the datasets used in this study is shown in Table. \ref{tab:dataset_overview}.
+
+
+
+% \subsection{Implementation Details}
+% We use RoBERTa-base as the backbone model. 
+
+
+\subsection{Results}
+We present our experiment results in Table. \ref{tab:injection_results}.
+
+\textit{Knowledge injection performs better on smaller datasets.}
+We observe from our experiment results that the incorporation of external knowledge is able to improve the entity resolution performance. However, this improvement is found to be more significant on datasets with a smaller amount of training data (e.g., iTunes-Amazon). The reason might be that given fewer training instances, it becomes harder for the language model to learn enough information in order to correctly distinguish between different entities. 
+Through prompting, the model is provided with additional knowledge to augment the learning process. The results show that our proposed knowledge augmentation methods are able to improve the model performance over the state-of-the-art Ditto model, especially in a data-scarce context.
+% \textit{Prompting with "/" performs better than space and K-BERT style injection.}
+We also found that using "/" to prompt the model with additional knowledge performs better than using space and K-BERT style prompting in most scenarios. However, we also observe prompting with K-BERT style achieved better performance in datasets with smaller text lengths. 
+
+\textit{Knowledge injection does not perform well on certain domain-specific datasets (e.g., scholarly publications).}
+The datasets used in our experiments span several different domains. By using our proposed knowledge augmentation methods (e.g., entity linking), records from certain domains, such as music and product, benefit from more accurate retrieval knowledge, since the entities mentioned in the data are more general. 
+However, datasets from domains like publications require more domain-specific or even expert knowledge rather than general commonsense. Our knowledge injection methods are mostly designed for retrieving general knowledge, thus resulting in lower performance over datasets such as DBLP-GoogleScholar and DBLP-ACM. For future improvement, additional domain-specific knowledge retrieval models should be incorporated for knowledge injection. 
+
+\textit{Knowledge augmentation relying on input data quality might result in worse matching results.}
+
+We notice that the prediction result of Sherlock and Doduo rely on the quality of the input dataset a lot. For instance, the dirty version of iTunes-Amazon dataset is generated from the clean version by randomly emptying attributes and appending their values to another randomly selected
+attribute \cite{li_deep_2020}, in which 
+% \textit{Cascading error from knowledge injector leads to lower performance.} 
+% xxx

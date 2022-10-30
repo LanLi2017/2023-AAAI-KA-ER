@@ -1,0 +1,69 @@
+\begin{figure*}
+    \centering
+    \includegraphics[width=\linewidth]{plots/DCER_framework.png}
+    \caption{The framework of KAER.}
+    \label{fig:framework}
+\end{figure*}
+
+
+\begin{table*}[]
+\centering
+% \resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}clcccc@{}}
+\toprule
+\textbf{Data Type} & \multicolumn{1}{c}{\textbf{Datasets}} & \textbf{Domains} & \textbf{Size} & \textbf{\# Positive} & \textbf{\# Attr.} \\ \midrule
+\multirow{5}{*}{Structured} & Amazon-Google      & software & 11,460 & 1,167 & 3 \\
+                            & DBLP-GoogleScholar & citation & 28,707 & 5,347 & 4 \\
+                            & DBLP-ACM           & citation & 12,363 & 2,220 & 4 \\
+                            & iTunes-Amazon      & music    & 539    & 132   & 8 \\
+                            & Abt-Buy            & product  & 9,575  & 1,028 & 3 \\ \midrule
+\multirow{3}{*}{Dirty}      & iTunes-Amazon      & music    & 539    & 132   & 8 \\
+                            & DBLP-ACM           & citation & 12,363 & 2,220 & 4 \\
+                            & DBLP-GoogleScholar & citation & 28,707 & 5,347 & 4 \\ \bottomrule
+\end{tabular}
+% }
+\caption{Dataset Summary}
+\label{tab:dataset_overview}
+\end{table*}
+
+
+
+\subsection{Data Preparation: a Preceding Stage of Entity Resolution}
+
+Data quality impacts the cost and performance of entity resolution systems significantly. Even for an error-free system with perfectly clean data, data from multiple sources are often not saved in a consistent way or carefully controlled for quality \cite{elmagarmid_duplicate_2007}. Usually, the data preparation stage includes parsing, data transformation, and standardization steps, and the goal is to improve the quality of the in-flow data and make the data comparable, and more usable \cite{elmagarmid_duplicate_2007}. 
+
+Even though adjusting and selecting data preparators to prepare data before doing the entity resolution is not the focus of this paper, we will still apply some general data transformations to deal with specific data types. Data transformations are used to convert the data into the correct type or format that conforms to their domains \cite{elmagarmid_duplicate_2007}. Enhancing data quality by preprocessing data also contributes to the result of Sherlock \cite{hulsebos_sherlock_2019}, which can detect the semantic data types. Here we mainly use general transformations to help normalize the atomic types of data, such as \textit{string}, \textit{integer}, \textit{Boolean}. For instance, the \textit{float} type of data values for $Year$ is meaningless. So a simple conversion of the data from \textit{float} to \textit{integer} is required. Meanwhile, encoding issues also appear across the data values that need to be addressed at this stage. For numerical data, range checking could be used to ensure that data is in the appropriate range \cite{elmagarmid_duplicate_2007}. Preprocessing composite data values will be more complicated that requires a few steps, i.e., we usually first split the data values and then prepare data values separately, and finally merge the cleaned data values.
+
+% \subsection{Schema Matching: The Context of Entity Resolution}
+% % Assigned to Lan Li
+% Entity resolution is to identify and match records that refer to the same real-world entity. In many situations, raw records are stored from heterogeneous sources, while most existing techniques on entity resolution predefine the same schema for records from different sources \cite{elmagarmid_duplicate_2007}. Moreover, records from different sources might follow different structures at the attribute level, which adds more difficulties for entity resolution tasks \cite{enriquez_entity_2017, arabnia_when_2021}. Therefore, schema matching is required to discuss before we talk about entity resolution tasks. In particular, we consider the schema matching task as the context of processing entity resolution for schema matching guides which two records should be paired at the column level before processing the entity resolution at the row level. \cite{lin_efficient_2020} perform schema matching by creating a \textit{full schema} in which they compare and merge records from different sources into \textit{super record} before the entity resolution. In this way, they avoid information loss during the schema-matching process.
+
+% The main operation in manipulating schema information is \textit{Match}, which inputs two schemas and produces a mapping between two elements of the two schemas that relate semantically to each other \cite{rahm_survey_2001}. \cite{rahm_survey_2001} select the matching algorithms (a.k.a matchers) based on the application domain and schema types, and use data types to constrain the search space of correspondences. 
+
+\subsection{Pretrained Model for Entity Resolution}
+% Assigned to Lan Li
+
+\cite{zhao_auto-em_2019} propose a transfer-learning approach to entity matching (EM), leveraging pre-trained entity matching models that are based on large-scale, production knowledge bases (KB). Auto-EM enables entity type detection and entity matching at the attribute level by learning a large amount of data from KBs. In this way, they achieve a high EM quality with little labeled training data. \cite{wu_zeroer_2020} introduce ZeroER that requires \textit{Zero} labeled examples for entity resolution task. They leverage a powerful generative model based on Gaussian Mixture Models for learning the match and mismatch distributions. 
+
+Unlike Recurrent Neural Network (RNN) used in \cite{zhao_auto-em_2019, mudgal_deep_2018}, a few recent work applies transformer-based PLMs to entity resolution tasks. Paganelli et al. analyzes that simply fine-tuning BERT for matching/non-matching classification task mainly updates the last layers of the BERT components and BERT can recognize the input sequence represents a pair of records~\cite{paganelli_analyzing_2022}. Li et al. leverages siamese network structure to PLMs in order to improve the efficiency of PLMs during blocking phase~\cite{li_improving_2021}. 
+Ditto by \cite{li_deep_2020} is now the state-of-the-art entity matching system based on pre-trained Transformer-based language models. In addition, Ditto provides deeper language understanding for entity resolution by injecting domain knowledge, summarizing the key information, and augmenting with more difficult examples for training data. The method of conditioning the language model, a.k.a, "prompting," is a hot topic in Nature Language Processing \cite{kojima_large_2022}. They \cite{kojima_large_2022} propose Zero-shot-CoT, a single zero-shot prompt that evokes a chain of thought from large language models, highlighting that the performance of the language model has been affected by different templates of the prompt. 
+% Auto-EM introduce the framework to pretrain an RNN-based attribute type classifier on large knowledge base .
+\vspace{-0.5em}
+\subsection{Knowledge augmentation}
+There are existing studies about methods that can be used to inject external domain knowledge into PLMs: 
+
+% \subsection{Semantic data types recognition at column-level}
+
+\textbf{Semantic data types detection at column-level.}
+Sherlock \cite{hulsebos_sherlock_2019} is a novel system that uses a deep learning approach to detect semantic data types at the column level. Sherlock predicts the conceptual domain of a column when there is no schema or the existing schema cannot provide a fine-grained description of the data. Doduo~\cite{suhara_annotating_2022} is another recent method for annotating  columns with semantic types and for adding semantic relations between columns. Both Sherlock and Doduo methods can be used to inject domain-specific knowledge for columns with existing names or missing names.
+
+
+\textbf{Entity Linking}
+Entity Linking \cite{li_deep_2020} refers to the task of linking entity mentions appearing in natural language text with their corresponding entities in an external knowledge base, e.g., Wikidata. 
+Existing study has explored using PLMs to perform entity linking tasks, and achieved promising results. 
+Zhang et al.'s work \cite{zhang_ernie_2019} introduced the model ERNIE by jointly pre-training BERT with a masked language modeling objective. The knowledge augmented BERT model is found to outperform existing methods in multiple knowledge-driven tasks. 
+Later work by Peter et al. \cite{peters_knowledge_2019} futher improved the ERNIE model by introducing a trainable entity linker module and alignment between entity embedding and BERT embedding. 
+Recent work by Ayoola et al. \cite{ayoola_refined_2022} introduced an entity linking method by using fine-tuning a pre-trained language model over Wikipedia data. The model has shown strong ability in zero-shot domain adaptation, which is used as a baseline method for entity linking in our study. 
+
+\textbf{Knowledge Incorporation} %\liri{Liri}
+Recent works shows that injecting external knowledge to PLMs can benefit Natural Language Reprocessing (NLP) downstream tasks~\cite{zhang_ernie_2019,peters_knowledge_2019,liu_k-bert_2020,wang_k-adapter_2021, wang_kepler_2021}. Furthermore, the method to inject the identified external knowledge into PLMs matters. Liu et al. propose the model K-BERT adding soft-position encoding and visible matrix to the augmented input sequence to avoid exposing too much knowledge to the original input and corresponding models~\cite{liu_k-bert_2020}. Another direction of knowledge incorporation is to align the knowledge embedding and PLMs output into same embedding space. The work from Wang et al. \cite{wang_kepler_2021} introduced a joint pre-training method based on roBERTa to map knowledge base entity and natural language entity description into the sample space. The knowledge embedding produced by KEPLER can be utilized as an additional input information source in our entity resolution task. K-Adaptor, proposed by Wang et al.~\cite{wang_k-adapter_2021}, stacks pre-trained multiple adapter model with RoBERTa for different types of knowledge, e.g. one for factual knowledge from knowledge base and another for linguistic-related syntax knowledge. The effectiveness of these methods in incorporating knowledge into entity resolution tasks can be further explored.

@@ -1,0 +1,208 @@
+% \documentclass[sigconf,authordraft]{acmart}
+\documentclass[sigconf, nonacm]{acmart}
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+\usepackage{graphicx}
+% \setcopyright{acmcopyright}
+% \copyrightyear{2018}
+% \acmYear{2018}
+% \acmDOI{XXXXXXX.XXXXXXX}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+
+\definecolor{neonfuchsia}{rgb}{1.0, 0.25, 0.39}
+\newcommand{\yiren}[1]{{\small\textcolor{neonfuchsia}{\bf [*** Yi-Ren: #1]}}}
+\newcommand{\liri}[1]{{\textsf{\textcolor{teal}{[From Liri: #1]}}}}
+%% These commands are for a PROCEEDINGS abstract or paper.
+% \acmConference[Conference acronym 'XX]{Make sure to enter the correct
+%   conference title from your rights confirmation emai}{June 03--05,
+%   2018}{Woodstock, NY}
+
+% \acmPrice{15.00}
+% \acmISBN{978-1-4503-XXXX-X/18/06}
+
+
+
+\begin{document}
+
+
+\title{Deep Entity Matching with Knowledge-augmented Pre-trained Language Models}
+% ; Preparation affect Entity resolution with Foundation Models Results
+
+% \author{Lan Li \quad Yiren Liu}
+% \authornote{Both authors contributed equally to this research.}
+% \email{}
+% \orcid{}
+% \author{}
+% \authornotemark[1]
+% \email{}
+% \affiliation{%
+%   \institution{}
+%   \streetaddress{}
+%   \city{}
+%   \state{}
+%   \country{USA}
+%   \postcode{}
+% }
+
+
+% \author[1]{Lan Li}
+% \author[2]{Yiren Liu}
+
+% \email[1]{lanl2@illinois.edu}
+% \email[2]{yirenl2@illinois.edu}
+
+
+\author{
+  Lan Li \\ 
+ lanl2@illinois.edu
+  \and
+  Yiren Liu \\
+  yirenl2@illinois.edu
+}
+
+% \affiliation{%
+%   \institution{}
+%   \city{}
+%   \country{}
+% }
+
+% \author{Lars Th{\o}rv{\"a}ld}
+% \affiliation{%
+%   \institution{The Th{\o}rv{\"a}ld Group}
+%   \streetaddress{1 Th{\o}rv{\"a}ld Circle}
+%   \city{Hekla}
+%   \country{Iceland}}
+% \email{larst@affiliation.org}
+
+% \renewcommand{\shortauthors}{Trovato and Tobin, et al.}
+
+
+\input{00abstract.tex}
+
+% \begin{CCSXML}
+% <ccs2012>
+%  <concept>
+%   <concept_id>10010520.10010553.10010562</concept_id>
+%   <concept_desc>Computer systems organization~Embedded systems</concept_desc>
+%   <concept_significance>500</concept_significance>
+%  </concept>
+%  <concept>
+%   <concept_id>10010520.10010575.10010755</concept_id>
+%   <concept_desc>Computer systems organization~Redundancy</concept_desc>
+%   <concept_significance>300</concept_significance>
+%  </concept>
+%  <concept>
+%   <concept_id>10010520.10010553.10010554</concept_id>
+%   <concept_desc>Computer systems organization~Robotics</concept_desc>
+%   <concept_significance>100</concept_significance>
+%  </concept>
+%  <concept>
+%   <concept_id>10003033.10003083.10003095</concept_id>
+%   <concept_desc>Networks~Network reliability</concept_desc>
+%   <concept_significance>100</concept_significance>
+%  </concept>
+% </ccs2012>
+% \end{CCSXML}
+
+% \ccsdesc[500]{Computer systems organization~Embedded systems}
+% \ccsdesc[300]{Computer systems organization~Redundancy}
+% \ccsdesc{Computer systems organization~Robotics}
+% \ccsdesc[100]{Networks~Network reliability}
+
+
+% \keywords{}
+
+\maketitle
+% \textcolor{blue}{Abstract and Introduction (What topics are you going to work on? Why do you want to work on that topic? What results are you expected to get?)
+% Related work (What related papers are you going to read on this topic?)
+% Potential solutions and dataset (What are the possible approach and dataset you want to explore on?)
+% Reference List}
+\section{Introduction}
+\input{01introduction}
+
+\section{Related Work}
+\input{02related-work}
+
+\section{Potential Solutions and Dataset}
+% \section{Experience, Readiness, Usage Plans and Funding Source(s)}\label{sec-experience}
+\input{03potential-solutions}
+
+% % What is entity matching/resolution/deduplication problem? 
+
+% % why care DC: it is difficult to capture the extra steps/massage the data before applying the novel algorithms. 
+
+% The ability to repeat and compare the experimental results is fundamental aspect of the research, however, experimenters "massage" the data before applying their novel algorithms without explicitly record them \cite{koumarelas2020data}. In other words, the implicit using data cleaning or data preparation before the entity resolution task result in experiment results incomparable. 
+
+% In this paper, we aim to survey how the data preprocessing performs in entity resolution with foundation models tasks. 
+% % TODO 
+% Challenges:
+
+% Quite a few papers have not explicitly describe how they preprocess the data even though they list some data quality issues. 
+% - \cite{mudgal2018deep} propose three kinds of entities
+% \section{Background}
+% In paper \cite{li2020deep}, they implement \emph{DITTO}, a novel entity matching system based on pretrained language models. \emph{DITTO} has improved the matching quality and outperforms the previous state-of-the-art. The optimizations of \emph{DITTO} can be categorized as data preparation include: 1. it injects domain knowledge; 2. it summarizes long pieces of input and only keep the most essential information.
+
+% In paper \cite{zhao2019auto}, 
+
+
+
+
+
+%%
+%% The acknowledgments section is defined using the "acks" environment
+%% (and NOT an unnumbered section). This ensures the proper
+%% identification of the section in the article metadata, and the
+%% consistent spelling of the heading.
+% \begin{acks}
+% To Robert, for the bagels and explaining CMYK and color spaces.
+% \end{acks}
+
+%%
+%% The next two lines define the bibliography style to be used, and
+%% the bibliography file.
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{Reference}
+
+%%
+%% If your work has an appendix, this is the place to put it.
+% \appendix
+
+% \section{Research Methods}
+
+% \subsection{Part One}
+
+% Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+% malesuada, quam in pulvinar varius, metus nunc fermentum urna, id
+% sollicitudin purus odio sit amet enim. Aliquam ullamcorper eu ipsum
+% vel mollis. Curabitur quis dictum nisl. Phasellus vel semper risus, et
+% lacinia dolor. Integer ultricies commodo sem nec semper.
+
+% \subsection{Part Two}
+
+% Etiam commodo feugiat nisl pulvinar pellentesque. Etiam auctor sodales
+% ligula, non varius nibh pulvinar semper. Suspendisse nec lectus non
+% ipsum convallis congue hendrerit vitae sapien. Donec at laoreet
+% eros. Vivamus non purus placerat, scelerisque diam eu, cursus
+% ante. Etiam aliquam tortor auctor efficitur mattis.
+
+% \section{Online Resources}
+
+% Nam id fermentum dui. Suspendisse sagittis tortor a nulla mollis, in
+% pulvinar ex pretium. Sed interdum orci quis metus euismod, et sagittis
+% enim maximus. Vestibulum gravida massa ut felis suscipit
+% congue. Quisque mattis elit a risus ultrices commodo venenatis eget
+% dui. Etiam sagittis eleifend elementum.
+
+% Nam interdum magna at lectus dignissim, ac dignissim lorem
+% rhoncus. Maecenas eu arcu ac neque placerat aliquam. Nunc pulvinar
+% massa et mattis lacinia.
+
+\end{document}
+\endinput
+%%
+%% End of file `sample-authordraft.tex'.

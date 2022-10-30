@@ -1,0 +1,93 @@
+\begin{table*}[!ht]
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lccccccc}
+\hline
+\multicolumn{1}{l|}{}                  & \multicolumn{2}{c|}{\textbf{Dirty}} & \multicolumn{4}{c|}{\textbf{Structured}}                      & \textbf{Textual} \\ \hline
+\multicolumn{1}{c|}{\textbf{Injection}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}DBLP\\ -\\ GoogleScholar\end{tabular}} &
+  \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}iTunes\\ -\\ Amazon\end{tabular}}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}iTunes\\ -\\ Amazon\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Amazon\\ -\\ Google\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}DBLP\\ -\\ ACM\end{tabular}} &
+  \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}DBLP\\ -\\ GoogleScholar\end{tabular}}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Abt\\ -\\ Buy\end{tabular}} \\ \hline
+\textbf{Ditto}                         & 95.8             & 66.7             & 85.2          & 73.2          & 98.8          & 95.9          & 88.4             \\
+\textbf{Ditto + Sherlock}              & 95.8             & \textbf{90.2}    & \textbf{92.6} & 67.3          & 98.8          & 94.3          & 89.2             \\
+\textbf{Ditto + Sherlock + /}          & 95.7             & 90.0             & 88.9          & 70.0          & 98.7          & 95.5          & 91.7             \\
+\textbf{Ditto + Sherlock + KBert}      & 95.3             & 66.7             & 66.7          & 77.9          & 97.5          & 95.7          & 77.2             \\
+\textbf{Ditto + Doduo}                 & 94.8             & 88.5             & 66.7          & 72.5          & 98.8          & 95.6          & 88.6             \\
+\textbf{Ditto + Doduo + /}             & 95.4             & 80.0             & 53.6          & \textbf{76.6} & 98.8          & 95.7          & 88.9             \\
+\textbf{Ditto + Doduo + KBert}         & 95.5             & 72.0             & 72.7          & 75.4          & 96.9          & 95.6          & 69.4             \\
+\textbf{Ditto + EL}                    & 95.6             & 87.3             & 72.4          & 73.5          & 98.5          & 95.5          & 89.1             \\
+\textbf{Ditto + EL + /}                & 95.5             & 80.8             & 84.6          & 73.1          & 98.4          & \textbf{96.2} & 88.2             \\
+\textbf{Ditto + EL + KBert}            & 95.2             & 80.9             & 69.7          & 76.2          & 97.1          & 95.3          & 74.8             \\
+\textbf{Ditto + Sherlock + EL}         & 95.7             & 69.7             & 73.5          & 71.7          & 98.4          & \textbf{96.2} & 89.7             \\
+\textbf{Ditto + Sherlock + EL + /}     & \textbf{96.0}    & 75.4             & 61.5          & 75.5          & 98.3          & 95.2          & 89.8             \\
+\textbf{Ditto + Sherlock + EL + KBert} & 94.8             & 66.7             & 70.0          & 73.5          & 96.5          & 94.7          & 66.8             \\
+\textbf{Ditto + Doduo + EL}            & 95.2             & 62.5             & 66.7          & 74.4          & \textbf{99.0} & 95.8          & \textbf{92.1}    \\
+\textbf{Ditto + Doduo + EL + /}        & 95.3             & 62.5             & 54.5          & 75.5          & 98.8          & 95.4          & 89.0             \\
+\textbf{Ditto + Doduo + EL + KBert}    & 94.1             & 69.2             & 71.7          & 76.2          & 95.8          & 94.9          & 56.7             \\ \hline
+\end{tabular}
+}
+\caption{Results using different knowledge injection methods.}
+\label{tab:injection_results}
+\end{table*}
+
+
+
+\subsection{Notation of Entity Resolution Task}
+We now describe the formulation of the entity resolution task we will focus on in this paper. The input of the entity resolution task consists of a set $M \subseteq D_1 \times D_2$ of data entries $e \in M$, where $D_1$ and $D_2$ are two sets of data entry collections that contain duplicated entries. 
+For each data entry, $e \in {(attr_i, val_i)}_{1 \leq i \leq N}$ where $N$ is the size of the set $M$, and $(e_1, e_2) \in M$. The task discussed in this paper focuses on: for each data entry pair $(e_1, e_2) \in M$, determine whether this pair is a pair of duplicated data entries.
+% \yiren{TODO}
+
+\subsection{Overview}
+
+
+\subsubsection{Pre-trained Language Model for Entity Resolution}
+Following the work by Li et al. \cite{li_deep_2020}, we use roBERTa-based as the backbone model of our entity resolution method. For each data entry pair $(e_1, e_2)$, we serialize the text context of column names and values of $e_1$ and $e_2$, and concatenate them as the input for language model. We then use the [CLS] token position to classify whether $e_1$ and $e_2$ refer to the same entity. 
+The loss for optimizing the classification objective is:
+
+\begin{equation}
+    \ell = - log\ p(y | e_1, e_2)
+\end{equation}
+
+where y denotes whether $e_1$ and $e_2$ refer to the same entity. 
+
+
+% \subsubsection{Knowledge Augmentation}
+
+\subsubsection{Column Type Prediction}
+Column type prediction aims to predict the semantic type of each column by considering the context of inter- and intra-columns. We leverage two methods for column type prediction: Sherlock \cite{hulsebos_sherlock_2019} and Doduo \cite{suhara_annotating_2022}.
+
+\textbf{Sherlock} is a multi-input deep neural network and is trained on 686,765 data columns retrieved from the VizNet corpus by matching 78 semantic data types from DBpedia to column headers \cite{hulsebos_sherlock_2019}. There are four categories of features fed into this neural network, including global statistics, aggregated character distributions, pre-trained word embeddings, and self-trained paragraph vectors. Overall, they train subnetworks for aggregated character distributions, pre-trained word embeddings, and paragraph vectors. And then they concatenate the weights of the three output layers with global statistics features to form the input of Sherlock. 
+
+\textbf{Doduo} is a multi-task learning framework based on pre-trained language models (LMs) \cite{suhara_annotating_2022}. Doduo serializes the entire table into a sequence of tokens to make it fit for Transformer-based architecture. Considering a table T consists of a set of attributes, i.e., $T= (c_1, c_2,... c_n)$, and we denote by  $val(T.c_i)$ the list of data values stored at the column $c_i$. In this way, for each value v, it can be of string type and split into a sequence of input tokens to pre-trained LMs. The serialization strategy of Doduo is simply concatenating column values to make a sequence of tokens and feed that sequence as input to the model \cite{suhara_annotating_2022}. 
+
+\begin{equation}
+    serialize_{single}(C) ::= [CLS]\ v_1\ ...\ v_m\ [SEP],
+\end{equation}
+
+[CLS] and [SEP] are special tokens to mark the beginning and end of a sequence. 
+
+
+\subsubsection{Entity linking}
+The task of entity link aims to identify all entity mentions from a given knowledge base (KB) within the target text sequence. More specifically, we attempt to identify the text span of each entity mention $m \in M$, and map each mention to the entity set from an external KB $\mathcal{M}: M \rightarrow E$. 
+We then use additional knowledge from the KB to augment the input text records.
+In this study, we use WikiData as the external KB since it covers a wide range of domains and is suitable for entity resolution over different datasets. For the entity linking method, we use the state-of-the-art method proposed by Ayoola et al. \cite{ayoola_refined_2022}, which uses a RoBERTa model jointly pre-trained over entity typing and entity description modeling objectives. We extract the coarse entity type as the additional knowledge we inject into the model input.
+
+% \subsubsection{Prompting for Knowledge Injection}
+
+\subsubsection{Template-based prompting}
+After acquiring domain knowledge, we experiment using text-based template to combine the knowledge with the initial text input. We concatenate the original entity mention/column name with the injected knowledge text with a "/" token. The "/" is the same token as "/" in the text. 
+Additionally, we also experiment with simply using space to connect the original entity mention/column name and injected knowledge. 
+
+
+% \begin{equation}
+%     s(e_1, e_2) ::= [COL] attr_i [VAL] val_i [SEP] [COL] attr_j [val] val_j
+% \end{equation}
+
+\subsubsection{KBert}
+
+
+

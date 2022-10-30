@@ -1,0 +1,40 @@
+% [What is entity resolution task, prior works …]
+
+% Entity resolution is a significant problem and has been studied across many fields, such as database, data cleaning, machine learning and deep learning. Even though they are given different names across the studies, such as entity matching, record linkage, deduplication, merge/purge, and etc, the main goal is the same, which is trying to match(merge) multiple records that refer to the same real-world entity. 
+
+Recent studies using \emph{Transformer-based pre-trained language models} (PLMs) have shown their strong ability in performing various types of NLP tasks \cite{min_recent_2021}. However, not many studies have discussed the application of PLMs in the domain of data cleaning. 
+
+As a data cleaning task well-discussed by existing research, entity resolution aims to identify the entries referring to the same real-world entities within or across databases~\cite{christen_data_2012}. Entity resolution, also known as entity matching, record linkage, or data deduplication, is a classical problem in data integration~\cite{zhao_auto-em_2019}. The typical process of entity resolution contains data preparation, data indexing or blocking, and data matching. 
+Christian (2012) mentioned that schema standardization of records is an essential data preparation for entity resolution task~\cite{christen_data_2012}. 
+Koutmarelas et al. (2020) analyzed the effectiveness of multiple syntactic-level data preparations, e.g., tokenization or stemmization, for threshold-based classifiers~\cite{koumarelas_data_2020}. 
+
+With transformer-based \emph{pre-trained language models} (PLMs), recent studies draw increasing attention to entity resolution problems by leveraging PLMs~\cite{li_deep_2020, trabelsi_dame_2022}. However, current studies show that the performance might not be ideal for simply inputting the serialized entity pairs into PLMs for classification. For example, Li et al. (2020) proposed a new model, Ditto, which injects domain information, i.e., an \emph{entity type}, and standardizes the numerical formats to improve the performance before feeding the serialized entity pairs into PLMs. Inspired by Ditto, semantic-level data preparations, like entity type injection, can contribute to the entity resolution problems. Moreover, 
+% [Recent work of using PLMs for data cleaning]
+% Entity resolution can be seen as one of the challenging data cleaning tasks.
+in real-life data cleaning practice, the source data often cover varied domains (e.g., publications, online products, geolocations) and in different formats (e.g., numerical, textual, non/structured). All of these increase the difficulty for practitioners to perform entity resolution tasks without prior knowledge about the domain-specific information about the data.
+
+
+% data cleaning tasks such as entity resolution without the prior knowledge about the domain-specific information about the data itself. 
+Prior work has also shown that performing data preparation to clean the data before applying ML-based models for entity resolution can improve task performance \cite{koumarelas_data_2020}. However, it still remains under-studied how domain-specific knowledge can be incorporated into the input data, and how it can benefit downstream data cleaning tasks such as entity resolution.
+
+	
+
+
+\section{Research Problems}
+In this project, we target the following research questions:
+\begin{itemize}
+    \item (RQ$_1$) How to incorporate domain knowledge into input data when using PLMs for data cleaning?
+    
+    \item (RQ$_2$) To what extent does the incorporation of domain knowledge benefit downstream data cleaning tasks, such as entity resolution? 
+\end{itemize}
+
+% ....TODO: finalize RQ1, RQ2
+
+Starting from state-of-the-art methods using pre-trained language models, such as Ditto \cite{li_deep_2020}, and code for entity resolution tasks, we will first conduct a number of experiments to measure the performance, both in terms of result accuracy, e.g., F1 values, and computational efficiency through benchmarking experiments.
+
+We will then enhance this state-of-the-art method by using column semantic type inference \cite{hulsebos_sherlock_2019} and entity linking \cite{ayoola_refined_2022} (i.e., semantic information using online resources such as Wikidata/Wikipedia), in order to inject domain-specific information as additional signals to pre-trained language models. 
+
+\textbf{Notation of Entity Resolution Task}
+We now describe the formulation of the entity resolution task we will focus on in this paper. The input of the entity resolution task consists of a set $M \subseteq D_1 \times D_2$ of data entries $e \in M$, where $D_1$ and $D_2$ are two sets of data entry collections that contain duplicated entries. 
+For each data entry, $e \in {(attr_i, val_i)}_{1 \leq i \leq N}$ where $N$ is the size of the set $M$, and $(e_1, e_2) \in M$. The task discussed in this paper focuses on: for each data entry pair $(e_1, e_2) \in M$, determine whether this pair is a pair of duplicated data entries.
+% \yiren{TODO}

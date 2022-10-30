@@ -1,0 +1,27 @@
+% PLMs rarely used in data cleaning, in particular, entity resolution tasks
+%  challenge 1: missing domain knowledge to help prepare data;
+%  challenge 2: missing semantic data types/ a better language understanding of the textual data
+%  challenge 3: "too much knowledge incorporation may divert the sentence
+% from its correct meaning, which is called knowledge
+% noise (KN) issue." \cite{liu_k-bert_2020}
+Recent studies using \emph{Transformer-based pre-trained language models} (PLMs) have shown their strong ability in performing various types of NLP tasks \cite{min_recent_2021}. However, not many studies have discussed the application of PLMs in the domain of data cleaning. 
+
+As a data cleaning task well-discussed by existing research, entity resolution aims to identify the entries referring to the same real-world entities within or across databases~\cite{christen_data_2012}. Entity resolution, also known as entity matching, record linkage, or data deduplication, is a classical problem in data integration~\cite{zhao_auto-em_2019}. The typical process of entity resolution contains data preparation, data indexing or blocking, and data matching. %  challenge 1: missing domain knowledge to help prepare data;
+Prior work has shown that performing data preparation to clean the data before applying ML-based models for entity resolution can improve task performance,  e.g., tokenization or stemming, for threshold-based classifiers \cite{koumarelas_data_2020}. However, it still remains under-studied how data preparators can be applied to datasets from different domains or different types. For instance, the source data often cover varied domains (e.g., publications, online products, geolocations) and in different formats (e.g., numerical, textual, non/structured). All of these increase the difficulty for practitioners to perform entity resolution tasks without prior knowledge of the domain-specific information about the data.
+
+In many situations, raw records are stored from heterogeneous sources, while most existing techniques on entity resolution predefine the same schema for records from different sources \cite{elmagarmid_duplicate_2007}. Records from different sources might follow different structures at the attribute level, which adds more difficulties for entity resolution tasks \cite{enriquez_entity_2017, arabnia_when_2021}. Christian (2012) mentioned that schema standardization of records is an essential data preparation for entity resolution task~\cite{christen_data_2012}. Hulsebos et al \cite{hulsebos_sherlock_2019} introduced Sherlock, a multi-input deep neural network for detecting semantic data types, in which they match 78 semantic types from DBpedia to column headers.  Similarly, Doduo \cite{suhara_annotating_2022}, a multi-task learning framework that is based on
+\emph{pre-trained language models} (PLMs) can predict column types and column relations. We hypothesize that enhancing the semantics knowledge of the schema information can contribute to the improvement of entity resolution tasks.  
+
+With transformer-based \emph{pre-trained language models} (PLMs), recent studies draw increasing attention to entity resolution problems by leveraging PLMs~\cite{li_deep_2020, trabelsi_dame_2022}. However, current studies show that the performance might not be ideal for simply inputting the serialized entity pairs into PLMs for classification. Ditto \cite{li_deep_2020}, which injects domain information, in particular, an \emph{entity type}, and standardizes the numerical formats to improve the performance before feeding the serialized entity pairs into PLMs. We move one step further by injecting more external knowledge at the schema level and entity level. On the other hand, to avoid knowledge noise (KN) issues, i.e., the overwhelming knowledge incorporation might divert the correct meaning of the record \cite{liu_k-bert_2020}, we apply soft-position and visible matrix from K-BERT to limit the impact of external knowledge injection. 
+
+% Contributions:?
+Starting from state-of-the-art methods using pre-trained language models, Ditto \cite{li_deep_2020}, we enhance existing method by using column semantic type inference \cite{hulsebos_sherlock_2019, suhara_annotating_2022} and entity linking \cite{ayoola_refined_2022} (i.e., semantic information using online resources such as Wikidata/Wikipedia), in order to inject domain-specific information as additional signals to pre-trained language models. 
+
+
+% \section{Research Problems}
+% In this project, we target the following research questions:
+% \begin{itemize}
+%     \item (RQ$_1$) How to incorporate domain knowledge into input data when using PLMs for data cleaning?
+    
+%     \item (RQ$_2$) To what extent does the incorporation of domain knowledge benefit downstream data cleaning tasks, such as entity resolution? 
+% \end{itemize}
