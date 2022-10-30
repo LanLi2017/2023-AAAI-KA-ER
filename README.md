@@ -1,7 +1,7 @@
 # 2023-AAAI-KA-ER
 This is the paper on knowledge augmentation for entity resolution tasks.
 
-##Directory tree:
+### Directory tree:
 Main tex file: worksheet.tex
 ---00abstract.tex
 ---01instroduction.tex
