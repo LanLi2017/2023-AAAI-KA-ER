@@ -24,6 +24,8 @@ However, datasets from domains like publications require more domain-specific or
 
 \textit{Knowledge augmentation relying on input data quality might result in worse matching results.}
 We notice that the prediction result of Sherlock and Doduo rely on the quality of the input dataset a lot. For instance, the dirty version of iTunes-Amazon dataset is generated from the clean version by randomly emptying attributes and appending their values to another randomly selected
-attribute \cite{li_deep_2020}, in which 
+attribute \cite{li_deep_2020}. Undoubtedly, this will result in an inconsistency between the semantics of schema information and data values. In addition, this will add up challenges for Sherlock or Duduo to do the semantic data types detection. On the other hand, Ditto with Sherlock achieves the best performance with the dirty inputs compared with the Ditto without any knowledge injection, which also verifies the importance and necessity of knowledge augmentation for better language understanding on entity resolution tasks.
+
+
 % \textit{Cascading error from knowledge injector leads to lower performance.} 
 % xxx
