@@ -1,16 +1,41 @@
 % TODO: dataset statistic table
 \subsection{Dataset}
 
-We report experiment results over the Magellan datasets \cite{magellandata}. The data collection contains datasets designed for entity matching tasks across various domains. The overview of the datasets used in this study is shown in Table. \ref{tab:dataset_overview}.
+We report experiment results over the Magellan datasets \cite{magellandata}. The data collection contains datasets designed for entity matching tasks across various domains. The overview of the datasets used in this study is shown in Table \ref{tab:dataset_overview}.
 
-
-
+\begin{table}[h]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lclccc}
+\hline
+\textbf{Data Type} & \textbf{Dataset} & \textbf{Domain} & \textbf{Size} & \textbf{\# Positive} & \textbf{\# Attr.} \\ \hline
+Structured             & Amazon-Google      & software & 11,460 & 1,167 & 3 \\
+                       & iTunes-Amazon      & music    & 539    & 132   & 8 \\
+                       & DBLP-ACM           & citation & 12,363 & 2,220 & 4 \\
+                       & DBLP-GoogleScholar & citation & 28,707 & 5,347 & 4 \\ \hline
+\multirow{3}{*}{Dirty} & iTunes-Amazon      & music    & 539    & 132   & 8 \\
+                       & DBLP-ACM           & citation & 12,363 & 2,220 & 4 \\
+                       & DBLP-GoogleScholar & citation & 28,707 & 5,347 & 4 \\ \hline
+Textual                & Abt-Buy            & product  & 9,575  & 1,028 & 3 \\ \hline
+\end{tabular}
+}
+\caption{Dataset Summary}
+\label{tab:dataset_overview}
+\end{table}
+\vspace{-0.5cm}
 % \subsection{Implementation Details}
 % We use RoBERTa-base as the backbone model. 
 
 
+
+
+
+
 \subsection{Results}
-We present our experiment results in Table. \ref{tab:injection_results}.
+We present our experiment results in Table \ref{tab:injection_results}.
+
+
+
 
 \textit{Knowledge injection performs better on smaller datasets.}
 We observe from our experiment results that the incorporation of external knowledge is able to improve the entity resolution performance. However, this improvement is found to be more significant on datasets with a smaller amount of training data (e.g., iTunes-Amazon). The reason might be that given fewer training instances, it becomes harder for the language model to learn enough information in order to correctly distinguish between different entities. 

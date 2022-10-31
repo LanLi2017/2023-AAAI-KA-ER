@@ -1,3 +1,45 @@
+
+
+
+\subsection{Notation of Entity Resolution Task}
+We now describe the formulation of the entity resolution task we will focus on in this paper. The input of the entity resolution task consists of a set $M \subseteq D_1 \times D_2$ of data entries $e \in M$, where $D_1$ and $D_2$ are two sets of data entry collections that contain duplicated entries. 
+For each data entry, $e \in {(attr_i, val_i)}_{1 \leq i \leq N}$ where $N$ is the size of the set $M$, and $(e_1, e_2) \in M$. The task discussed in this paper focuses on: for each data entry pair $(e_1, e_2) \in M$, determine whether this pair is a pair of duplicated data entries.
+% \yiren{TODO}
+
+\subsection{Model Overview}
+We introduce a novel framework for entity resolution, which is named \textbf{K}nowledge \textbf{A}ugmentation \textbf{E}ntity \textbf{R}esolution (KAER) (See Figure \ref{fig:framework}).
+% KAER is based on a transformer; 
+% Three prompting types
+KAER uses PLMs for entity resolution and contains three modules for knowledge augmentation: a) column semantic type augmentation, b) entity semantic type augmentation, and c) prompting. We will introduce each module in the following sections.
+
+
+\subsubsection{Pre-trained Language Model for Entity Resolution}
+Following the work by Li et al. \cite{li_deep_2020}, we use roBERTa-based as the backbone model of our entity resolution method. For each data entry pair $(e_1, e_2)$, we serialize the text context of column names and values of $e_1$ and $e_2$, and concatenate them as the input for language model. We then use the [CLS] token position to classify whether $e_1$ and $e_2$ refer to the same entity. 
+The loss for optimizing the classification objective is:
+
+\begin{equation}
+    \ell = - log\ p(y | e_1, e_2)
+\end{equation}
+
+where y denotes whether $e_1$ and $e_2$ refer to the same entity. 
+
+
+% \subsubsection{Knowledge Augmentation}
+
+\subsubsection{Column type prediction}
+Column type prediction aims to predict the semantic type of each column by considering intra-column context. We leverage two methods for column type prediction: Sherlock \cite{hulsebos_sherlock_2019} and Doduo \cite{suhara_annotating_2022}.
+
+\subsubsection{Sherlock} is a multi-input deep neural network and is trained on 686,765 data columns retrieved from the VizNet corpus by matching 78 semantic data types from DBpedia to column headers \cite{hulsebos_sherlock_2019}. There are four categories of features fed into this neural network, including global statistics, aggregated character distributions, pre-trained word embeddings, and self-trained paragraph vectors. Overall, they train subnetworks for aggregated character distributions, pre-trained word embeddings, and paragraph vectors. And then they concatenate the weights of the three output layers with global statistics features to form the input of Sherlock. 
+
+\subsubsection{Doduo} is a multi-task learning framework based on pre-trained language models (LMs) \cite{suhara_annotating_2022}. Doduo serializes the entire table into a sequence of tokens to make it fit for Transformer-based architecture. Considering a table T consists of a set of attributes, i.e., $T= (c_1, c_2,... c_n)$, and we denote by  $val(T.c_i)$ the list of data values stored at the column $c_i$. In this way, for each value v, it can be of string type and split into a sequence of input tokens to pre-trained LMs. The serialization strategy of Doduo is simply concatenating column values to make a sequence of tokens and feed that sequence as input to the model \cite{suhara_annotating_2022}. 
+
+\begin{equation}
+    serialize_{single}(c_i) ::= [CLS]\ v_1\ ...\ v_m\ [SEP], \\ 
+\end{equation}
+
+where [CLS] and [SEP] are special tokens to mark the beginning and end of a sequence, and ${v_1 ... v_m} \in val(T.c_i)$.
+
+
 \begin{table*}[!ht]
 \centering
 \resizebox{\linewidth}{!}{
@@ -36,39 +78,6 @@
 
 
 
-\subsection{Notation of Entity Resolution Task}
-We now describe the formulation of the entity resolution task we will focus on in this paper. The input of the entity resolution task consists of a set $M \subseteq D_1 \times D_2$ of data entries $e \in M$, where $D_1$ and $D_2$ are two sets of data entry collections that contain duplicated entries. 
-For each data entry, $e \in {(attr_i, val_i)}_{1 \leq i \leq N}$ where $N$ is the size of the set $M$, and $(e_1, e_2) \in M$. The task discussed in this paper focuses on: for each data entry pair $(e_1, e_2) \in M$, determine whether this pair is a pair of duplicated data entries.
-% \yiren{TODO}
-
-\subsection{Model Overview}
-xxxx
-
-\subsubsection{Pre-trained Language Model for Entity Resolution}
-Following the work by Li et al. \cite{li_deep_2020}, we use roBERTa-based as the backbone model of our entity resolution method. For each data entry pair $(e_1, e_2)$, we serialize the text context of column names and values of $e_1$ and $e_2$, and concatenate them as the input for language model. We then use the [CLS] token position to classify whether $e_1$ and $e_2$ refer to the same entity. 
-The loss for optimizing the classification objective is:
-
-\begin{equation}
-    \ell = - log\ p(y | e_1, e_2)
-\end{equation}
-
-where y denotes whether $e_1$ and $e_2$ refer to the same entity. 
-
-
-% \subsubsection{Knowledge Augmentation}
-
-\subsubsection{Column Type Prediction}
-Column type prediction aims to predict the semantic type of each column by considering intra-column context. We leverage two methods for column type prediction: Sherlock \cite{hulsebos_sherlock_2019} and Doduo \cite{suhara_annotating_2022}.
-
-\subsubsection{Sherlock} is a multi-input deep neural network and is trained on 686,765 data columns retrieved from the VizNet corpus by matching 78 semantic data types from DBpedia to column headers \cite{hulsebos_sherlock_2019}. There are four categories of features fed into this neural network, including global statistics, aggregated character distributions, pre-trained word embeddings, and self-trained paragraph vectors. Overall, they train subnetworks for aggregated character distributions, pre-trained word embeddings, and paragraph vectors. And then they concatenate the weights of the three output layers with global statistics features to form the input of Sherlock. 
-
-\subsubsection{Doduo} is a multi-task learning framework based on pre-trained language models (LMs) \cite{suhara_annotating_2022}. Doduo serializes the entire table into a sequence of tokens to make it fit for Transformer-based architecture. Considering a table T consists of a set of attributes, i.e., $T= (c_1, c_2,... c_n)$, and we denote by  $val(T.c_i)$ the list of data values stored at the column $c_i$. In this way, for each value v, it can be of string type and split into a sequence of input tokens to pre-trained LMs. The serialization strategy of Doduo is simply concatenating column values to make a sequence of tokens and feed that sequence as input to the model \cite{suhara_annotating_2022}. 
-
-\begin{equation}
-    serialize_{single}(c_i) ::= [CLS]\ v_1\ ...\ v_m\ [SEP], \\ 
-\end{equation}
-
-where [CLS] and [SEP] are special tokens to mark the beginning and end of a sequence, and ${v_1 ... v_m} \in val(T.c_i)$.
 
 
 \subsubsection{Entity linking}
