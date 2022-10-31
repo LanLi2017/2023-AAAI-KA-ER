@@ -22,12 +22,18 @@ All of these increase the difficulty for practitioners to perform entity resolut
 % \emph{pre-trained language models} (PLMs) can predict column types and column relations. 
 Thus, we hypothesize that enhancing the semantics knowledge of the schema information can contribute to entity resolution tasks.  
 
-With transformer-based \emph{pre-trained language models} (PLMs), recent studies draw increasing attention to entity resolution problems~\cite{li_deep_2020, trabelsi_dame_2022}. However, current studies show that the performance might not be ideal for simply inputting the serialized entity pairs into PLMs for classification. Ditto \cite{li_deep_2020}, which injects domain information, in particular, an \emph{entity type}, and standardizes the numerical formats to improve the performance before feeding the serialized entity pairs into PLMs. We move one step further by injecting more external knowledge at the schema level and entity level. 
+With transformer-based \emph{pre-trained language models} (PLMs), recent studies draw increasing attention to entity resolution problems~\cite{li_deep_2020, trabelsi_dame_2022}. However, current studies show that the performance might not be ideal for simply inputting the serialized entity pairs into PLMs for classification. Ditto \cite{li_deep_2020}, which injects domain information, in particular, an \emph{entity type}, and standardizes the numerical formats to improve the performance before feeding the serialized entity pairs into PLMs.
+We move one step further by injecting more external knowledge at the schema level and entity level. In addition, the format to inject the external knowledge into the initial entity pairs may vary the performance of PLMs. %Therefore, we further explore three prompting methods  
 
 %On the other hand, to avoid knowledge noise (KN) issues, i.e., the overwhelming knowledge incorporation might divert the correct meaning of the record \cite{liu_k-bert_2020}, we apply soft-position and visible matrix from K-BERT to limit the impact of external knowledge injection. 
 
 % Contributions:?
-Starting from state-of-the-art methods using PLMs, Ditto \cite{li_deep_2020}, we enhance existing method by using column semantic type inference \cite{hulsebos_sherlock_2019, suhara_annotating_2022} and entity linking \cite{ayoola_refined_2022} (i.e., semantic information using online resources such as Wikidata/Wikipedia), in order to inject domain-specific information as additional signals to pre-trained language models. 
+Starting from state-of-the-art methods using PLMs, Ditto \cite{li_deep_2020}, we enhance existing method by:
+\begin{itemize}
+    \item using column semantic type inference and entity linking in order to inject domain-specific information as additional signals to pre-trained language models.
+    \item leveraging three prompting methods to better augment the acquired knowledge to PLMs.
+\end{itemize}
+ 
 
 
 % \section{Research Problems}
