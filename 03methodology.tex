@@ -2,22 +2,23 @@
 
 
 \subsection{Notation of Entity Resolution Task}
-We now describe the formulation of the entity resolution task we will focus on in this paper, based on Ditto~\cite{li_deep_2020}. The input of the entity resolution task consists of a set $M \subseteq D_1 \times D_2$, where $D_1$ and $D_2$ are two sets of data entry collections that contain duplicated entries.  
+The formulation of the entity resolution task in this paper is based on the current work by~\citet{li_deep_2020}. The input of the entity resolution task consists of a set $M \subseteq D_1 \times D_2$, where $D_1$ and $D_2$ are two sets of data entry collections that contain duplicated entries.  
 For each data entry, $e \in {(attr_i, val_i)}_{1 \leq i \leq N}$ where $N$ is the number of attributes, and $(e_1, e_2) \in M$. The task discussed in this paper focuses on: for each data entry pair $(e_1, e_2) \in M$, determine whether $e_1$ and $e_2$ refer to the same data entity.
 % \yiren{TODO}
 
 \subsection{Model Overview}
-We introduce a framework for entity resolution: KAER (See Figure~\ref{fig:framework}). 
+This study introduces a new framework for entity resolution: KAER (See Figure~\ref{fig:framework}). 
 % \bl{in abstract + introduction}
 % KAER is based on a transformer; 
 % Three prompting types
-KAER uses PLMs for entity resolution and contains three modules for knowledge augmentation: a) column semantic type augmentation, b) entity semantic type augmentation, and c) prompting. We will introduce each module in the following sections.
+KAER uses PLMs for entity resolution and contains three modules for knowledge augmentation: a) column semantic type augmentation, b) entity semantic type augmentation, and c) prompting. 
+The following sections describe each module.
 
 
 \subsubsection{Pre-trained language model for entity resolution.}
-Following the work by~\citet{li_deep_2020}, KAER uses RoBERTa as the backbone model. For each data entry pair $(e_1, e_2)$, we serialize the text context of column names and values of $e_1$ and $e_2$, and concatenate them as the input for PLMs. We then use the [CLS] token position to classify whether $e_1$ and $e_2$ refer to the same entity. 
+Following the work by~\citet{li_deep_2020}, KAER uses RoBERTa as the backbone model. For each data entry pair, $(e_1, e_2)$, 
+ the text context of column names and values of $e_1$ and $e_2$ are serialized and concatenated as the input for PLMs. The [CLS] token position is used to classify whether $e_1$ and $e_2$ refer to the same entity. 
 The loss for optimizing the classification objective is:
-
 \begin{equation}
     \ell = - log\ p(y | s(e_1, e_2))
 \end{equation}
@@ -30,11 +31,11 @@ where y denotes whether $e_1$ and $e_2$ refer to the same entity, and $s(\cdot,\
 where $serialize(\cdot)$ serializes each data entry.
 \begin{equation}\Scale[0.8]{
 \begin{split}
-serialize(e_i) ::= & \text{[COL]}\ f(attr_1,p)\ \text{[VAL]}\ f(val_1,p)\ ...\\
-            & \text{[COL]}\ f(attr_N,p)\ \text{[VAL]}\ f(val_N,p)   
+serialize(e_i) ::= & \text{[COL]}\ f(attr_1,pt)\ \text{[VAL]}\ g(val_1,pt)\ ...\\
+            & \text{[COL]}\ f(attr_N,pt)\ \text{[VAL]}\ g(val_N,pt)   
 \end{split}}
 \end{equation}
-where $f(attr_i, p)$ denotes the semantic column type injection with prompting method $p$, and $f(val_i, p)$ denotes the entity linking injection with prompting method $p$. We will introduce column semantic type injection, entity linking, and three prompting methods in the following sections.
+where $f(attr_i, pt)$ denotes the semantic column type injection with prompting method $pt$, and $g(val_i, pt)$ denotes the entity linking injection with prompting method $pt$. The following sections describe  column semantic type injection, entity linking, and three prompting methods.
 
 % \subsubsection{Knowledge Augmentation}
 
@@ -130,27 +131,35 @@ Subsequent rows represent the various knowledge injection and prompting methods 
 
 
 \subsubsection{Entity linking.}
-The task of entity link aims to identify all entity mentions from a given knowledge base (KB) within the target text sequence. More specifically, we attempt to identify the text span of each entity mention $m \in M$, and map each mention to the entity set from an external KB $\mathcal{M}: M \rightarrow E$. 
-We then use additional knowledge from the KB to augment the input text records.
-In this study, we use WikiData as the external KB since it covers a wide range of domains and is suitable for entity resolution over different datasets. For the entity linking method, we use the state-of-the-art method proposed by~\citet{ayoola_refined_2022}, which uses a RoBERTa model jointly pre-trained over entity typing and entity description modeling objectives. We extract the coarse entity type as the additional knowledge we inject into the model input.
+The task of entity link aims to identify all entity mentions from a given knowledge base (KB) within the target text sequence. 
+More specifically, 1) to identify the text span of each entity mention $m \in M$, and 2) map each mention to the entity set from an external KB $\mathcal{M}: M \rightarrow E$. 
+Then additional knowledge from the KB is used to augment the input text records of the entity resolution model.
+In this study, WikiData is used as the external KB since it covers a wide range of domains and is suitable for entity resolution over different datasets. 
+Entity linking is accomplished using the state-of-the-art method proposed by~\citet{ayoola_refined_2022}, which uses a RoBERTa model jointly pre-trained over entity typing and entity description modeling objectives. The coarse entity type is used as the additional knowledge and injected into the model input.
 
 % \subsubsection{Prompting for Knowledge Injection}
 
 \subsubsection{Template-based prompting.}
-After acquiring domain knowledge, we experiment using text-based templates to combine the knowledge with the initial text input. We concatenate the original entity mention/column name with the injected knowledge text with a ``/'' token. The ``/'' is the same token as ``/'' in the text. 
-Additionally, we also experiment with simply using space to connect the original entity mention/column name and injected knowledge. 
-
+After acquiring domain knowledge, we experiment using text-based templates to combine the knowledge with the initial text input. 
+Two different characters are used to concatenate the original entity mention/column name, i.e. slash (``/'') and space. 
+The slash symbol is chosen because it contains a semantic meaning equivalent to 'or' in general web text.
+% First, the original entity mention/column name is concatenated with the injected knowledge text with simply a ``/'' token. The ``/'' is the same token as ``/'' in the text. 
+% \yiren{Why a slash makes difference? maybe adding some citations ... }; 
+% Second, simply using space to connect the original entity mention/column name and injected knowledge. 
 
 % \begin{equation}
 %     s(e_1, e_2) ::= [COL] attr_i [VAL] val_i [SEP] [COL] attr_j [val] val_j
 % \end{equation}
 
-\subsubsection{Prompting with soft-position encoding and visible matrix.}
-The domain knowledge injection modifies the initial input sequence in two dimensions, including the token position and token semantics. More specifically, the token from the initial input sequence has a different hard position if we concatenate the template-based prompting as mentioned above. In addition, the injected knowledge for a specific entity mention is shared with the surrounding tokens in the same sequence. These two modifications might introduce knowledge noise to the framework. To limit the knowledge noise, we leverage soft-position encoding and visible matrix as an additional input of our backbone model, inspired by KBert~\cite{liu_k-bert_2020}. Here, the knowledge-injected sequence is constructed into a tree structure, where the injected knowledge subsequences are considered branches. Thus, the soft-position encoding assigns the initial tokens the same position encoding in the knowledge-injected sequence as those in the initial input sequence and assigns the injected knowledge tokens the position in the branches. The visible matrix $V\in \mathcal{R}^{N \times N}$ is a binary matrix, where the injected knowledge token is only visible to itself and the corresponding entity mention/column name tokens, and set as 1.
+\subsubsection{Prompting with additional position encoding.}
+The domain knowledge injection modifies the initial input sequence in two dimensions, including the token position and token semantics. More specifically, the token from the initial input sequence has a different absolute position when the template-based prompting is concatenated. In addition, the injected knowledge for a specific entity mention is shared with the surrounding tokens in the same sequence. These two modifications might introduce erroneous knowledge and overload to the framework. 
+
+To limit the erroneous knowledge and overload, we leverage additional position encoding, i.e., soft-position encoding and visible matrix, as an additional input of our backbone model, inspired by K\-Bert~\cite{liu_k-bert_2020}. Here, the knowledge-injected sequence is constructed into a tree structure, where the injected knowledge subsequences are considered branches. In this way, as shown in Figure~\ref{fig:framework}, the soft-position encoding assigns the initial tokens the same position encoding in the knowledge-injected sequence as those in the initial input sequence, and assigns the injected knowledge tokens the position in the branches. The visible matrix $V\in \mathcal{R}^{N \times N}$ is a binary matrix, where the injected knowledge token is only visible to itself and the corresponding entity mention or column name tokens, and set as 1, denoted as follows:
 \begin{equation}
     V_{ij} = \begin{cases}
     1, & \text{if $token_i$ \text{and} $token_j$ co-occur}.\\
     0, & \text{otherwise}.
   \end{cases}
+  \label{Eq:VM}
 \end{equation}
-where the co-occurrence of $token_i$ and $token_j$ indicates the tokens co-occur in the initial input sequences or co-occur as head and tail in domain knowledge injection. Here, the head means the entity mention/column name, and the tail indicates the injected knowledge text. 
+where the co-occurrence of $token_i$ and $token_j$ indicates that the tokens co-occur in the initial input sequences or co-occur as head and tail in domain knowledge injection. Here, the head means the entity mention/column name, and the tail indicates the injected knowledge text. 

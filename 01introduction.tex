@@ -31,7 +31,8 @@ Thus, we hypothesize that enhancing the external knowledge at the schema and ent
 
 With transformer-based PLMs, recent studies draw increasing attention to entity resolution problems~\cite{li_deep_2020, trabelsi_dame_2022}. However, current studies show that the performance might not be ideal when simply inputting the serialized entity pairs into PLMs for classification. Ditto \cite{li_deep_2020} injects domain information: pre-defined entity types (i.e., PRODUCT and NUM), and standardizes the numerical formats to improve the performance before feeding the serialized entity pairs into PLMs.
 
-We push this idea further by injecting more external knowledge at the schema and entity level. Knowledge injection at the schema level aims to infer the fine-grained semantic types (e.g., ALBUM, ARTIST, PUBLISHER) for each column based on data values. For the entity level, we identify entity mentions from WikiData and annotate the initial text with semantic type information of the linked entities. In addition, different formats used to inject external knowledge into the initial entity pairs may vary the performance of PLMs. Thus, we further explore three prompting methods: space, slash, and additional position encoding of PLMs.
+We push this idea further by injecting more external knowledge at the schema and entity level. Knowledge injection at the schema level aims to infer the fine-grained semantic types (e.g., ALBUM, ARTIST, PUBLISHER) for each column based on data values. 
+For the entity level, entity mentions are identified from WikiData and annotated in the initial text with semantic type information of the linked entities. In addition, different formats used to inject external knowledge into the initial entity pairs may vary the performance of PLMs. Thus, three prompting methods are further explored in this study: space, slash, and additional position encoding of PLMs.
 % soft position encoding with the visible matrix. 
 
 % Contributions:?

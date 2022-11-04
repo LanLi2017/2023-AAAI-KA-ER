@@ -25,7 +25,7 @@ Textual                & Abt-Buy            & product  & 9,575  & 1,028 & 3 \\ \
 }
 \caption{Dataset Summary}
 \label{tab:dataset_overview}
-\vspace{-0.8cm}
+\vspace{-0.5cm}
 \end{table}
 
 % \subsection{Implementation Details}
@@ -46,16 +46,15 @@ According to the experimental results, incorporating external knowledge can impr
 % The results show that our proposed knowledge augmentation methods can improve the model performance over the state-of-the-art Ditto model, especially in a data-scarce context. 
 % the F1 score of most knowledge injection methods and prompting methods are higher than the F1 score of baseline model Ditto 
 For example, \textbf{KAER (RoBERTa + CST)} outperforms both baseline models Roberta and Ditto by 23.5\% and 13.1\% $\uparrow$ on dataset Dirty/iTunes-Amazon and 7.4\% and 38.8\% $\uparrow$ on dataset Structured/iTunes-Amazon. The two baseline models perform worse on smaller datasets because the language model might not be able to learn enough information to distinguish between different entities, given fewer training instances correctly. 
- 
-% \textit{Prompting with "/" performs better than space and K-BERT style injection.}
-Through prompting, the model is provided with additional knowledge to augment the learning process. We found that using slash ``/'' to prompt the model with additional knowledge performs better than using space and \textbf{A}dditional \textbf{P}osition \textbf{E}ncoding (APE) prompting in most scenarios. For example, \textbf{KAER (RoBERTa+CST+EL+/)} performs better than the other two prompting methods 
+ % \textit{Prompting with "/" performs better than space and K-BERT style injection.}
+Through prompting, the model is provided with additional knowledge to augment the learning process. The experimental results revealed that using slash ``/'' to prompt the model with additional knowledge performs better than using space and \textbf{A}dditional \textbf{P}osition \textbf{E}ncoding (APE) prompting in most scenarios. For example, \textbf{KAER (RoBERTa+CST+EL+/)} performs better than the other two prompting methods 
 %space and APE \textbf{KAER (RoBERTa+CST+EL)} and \textbf{KAER(RoBERTa+CST+EL+APE)} 
 on dataset Dirty/DBLP-GoogleScholar. Moreover, prompting with APE achieved better performance in datasets with smaller text lengths. For example, \textbf{KAER (RoBERTa+CST+APE} reaches the best F1 score (77.9\%) on dataset Structured/Amazon-Google, which contains the smallest text lengths.  
 
 \textit{Knowledge injection does not perform well datasets from certain domains.}
 The datasets used in our experiments span several different domains. Using our proposed knowledge augmentation methods (e.g., entity linking), records from certain domains, such as music and online product, benefit from more accurate retrieved knowledge. For example, \textbf{KAER(RoBERTa+CST)} achieves the best F1-score on the musical dataset iTunes-Amazon, as analyzed above, it outperforms both baseline models significantly. \textbf{KAER(RoBERTa+CST+/)} achieves the best F1-score, i.e., 91.7\%, on the textual dataset Abt-Buy from the online product domain. One potential reason for this notable improvement is that the entities mentioned in the datasets from these domains are more general.
-
 However, publication datasets from domains like citation require more domain-specific or even expert knowledge rather than general commonsense. Our knowledge injection methods are primarily designed for retrieving general knowledge. Thus, for datasets, like Structured/DBLP-ACM, \textbf{KAER(RoBERTa+CST)} performs as well as the baseline model, achieving the best F1-score 98.8\%, \textbf{RoBERTa}, but all the other KAER models perform worse. For future improvement, additional external expert knowledge from the citation domain should be incorporated for knowledge injection. 
+% \vt{The knowledge injection does not help in highly domain-specific dataset. The knowledge we are injecting is not the correct knowledge in terms of domain.}
 
 \textit{Knowledge augmentation is affected by data quality.}
 %We notice that 

@@ -1,7 +1,7 @@
 \begin{figure*}[!ht]
     \centering
     \includegraphics[width=\linewidth]{plots/DCER_short.pdf}
-    \vspace{-0.8cm}
+    \vspace{-0.7cm}
     \caption{The framework of KAER. First, (a) column semantic type augmentation and (b) entity semantic type augmentation are used to inject domain knowledge from both column and entity levels of the input table. 
     Then three options of prompting types are provided after external knowledge injection: (1) using space; (2) using ``/''; (3) using additional position encoding. 
     With the knowledge injection and prompting methods, the serialized sequence is fed into the PLMs.}
@@ -34,7 +34,7 @@ Ditto by \cite{li_deep_2020} is now the state-of-the-art entity matching system 
 % Auto-EM introduce the framework to pretrain an RNN-based attribute type classifier on large knowledge base .
 \vspace{-0.5em}
 \subsection{Knowledge Augmentation}
-Recent works show that injecting external knowledge to PLMs can benefit Natural Language Reprocessing (NLP) downstream tasks~\cite{zhang_ernie_2019,peters_knowledge_2019,liu_k-bert_2020,wang_k-adapter_2021, wang_kepler_2021}. 
+% Recent works show that injecting external knowledge to PLMs can benefit Natural Language Reprocessing (NLP) downstream tasks~\cite{zhang_ernie_2019,peters_knowledge_2019,liu_k-bert_2020,wang_k-adapter_2021, wang_kepler_2021}. 
 Recent studies on semantic column type augmentation and entity linking can inject external domain knowledge into PLMs at the schema and entity levels. 
 Semantic column-type augmentation can inject domain-specific knowledge for columns with/without existing column names. Existing studies~\cite{hulsebos_sherlock_2019,suhara_annotating_2022} use deep learning approaches to detect semantic data types at the column level.
 % Sherlock \cite{hulsebos_sherlock_2019} is a novel system that uses a deep learning approach to detect semantic data types at the column level. 
@@ -45,7 +45,7 @@ In addition, entity linking \cite{li_deep_2020} refers to the task of linking en
 % Existing study has explored using PLMs to perform entity linking tasks, and achieved promising results. 
 % \citet{zhang_ernie_2019} introduced the model ERNIE by jointly pre-training BERT with a masked language modeling objective. The knowledge augmented BERT model is found to outperform existing methods in multiple knowledge-driven tasks. 
 % Later work by \citet{peters_knowledge_2019} futher improved the ERNIE model by introducing a trainable entity linker module and alignment between entity embedding and BERT embedding. 
-Recent work by \citet{ayoola_refined_2022} introduces an entity linking method by fine-tuning a PLM over Wikipedia data, which we use as the method for entity linking in our study. 
+Recent work by \citet{ayoola_refined_2022} introduces an entity linking method by fine-tuning a PLM over Wikipedia data, which is used as the method for entity linking in this study. 
 
 % \subsubsection{Knowledge prompting} %\liri{Liri}
 The method of conditioning the language model, a.k.a, ``prompting'', is a hot topic in Nature Language Processing \citet{pengfeiliu}. \citet{kojima_large_2022} propose Zero-shot-CoT, a single zero-shot prompt that evokes a chain of thought from large language models, highlighting that the performance of the language model has been affected by different templates of the prompt.

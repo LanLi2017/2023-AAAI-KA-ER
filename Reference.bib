@@ -1,3 +1,5 @@
+
+
 @article{pengfeiliu,
   author    = {Pengfei Liu and
                Weizhe Yuan and
@@ -223,20 +225,25 @@ Type: dataset},
 	keywords = {deep learning, entity matching, entity resolution},
 	pages = {19--34},
 }
-
-@misc{kojima_large_2022,
-	title = {Large {Language} {Models} are {Zero}-{Shot} {Reasoners}},
-	url = {http://arxiv.org/abs/2205.11916},
-	abstract = {Pretrained large language models (LLMs) are widely used in many sub-ﬁelds of natural language processing (NLP) and generally known as excellent few-shot learners with task-speciﬁc exemplars. Notably, chain of thought (CoT) prompting, a recent technique for eliciting complex multi-step reasoning through step-bystep answer examples, achieved the state-of-the-art performances in arithmetics and symbolic reasoning, difﬁcult system-2 tasks that do not follow the standard scaling laws for LLMs. While these successes are often attributed to LLMs’ ability for few-shot learning, we show that LLMs are decent zero-shot reasoners by simply adding “Let’s think step by step” before each answer. Experimental results demonstrate that our Zero-shot-CoT, using the same single prompt template, signiﬁcantly outperforms zero-shot LLM performances on diverse benchmark reasoning tasks including arithmetics (MultiArith, GSM8K, AQUA-RAT, SVAMP), symbolic reasoning (Last Letter, Coin Flip), and other logical reasoning tasks (Date Understanding, Tracking Shufﬂed Objects), without any hand-crafted fewshot examples, e.g. increasing the accuracy on MultiArith from 17.7\% to 78.7\% and GSM8K from 10.4\% to 40.7\% with an off-the-shelf 175B parameter model. The versatility of this single prompt across very diverse reasoning tasks hints at untapped and understudied fundamental zero-shot capabilities of LLMs, suggesting high-level, multi-task broad cognitive capabilities may be extracted through simple prompting. We hope our work not only serves as the minimal strongest zeroshot baseline for the challenging reasoning benchmarks, but also highlights the importance of carefully exploring and analyzing the enormous zero-shot knowledge hidden inside LLMs before crafting ﬁnetuning datasets or few-shot exemplars.},
-	language = {en},
-	urldate = {2022-10-06},
-	publisher = {arXiv},
-	author = {Kojima, Takeshi and Gu, Shixiang Shane and Reid, Machel and Matsuo, Yutaka and Iwasawa, Yusuke},
-	month = oct,
-	year = {2022},
-	note = {arXiv:2205.11916 [cs]},
-	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computation and Language, Computer Science - Machine Learning},
+@article{kojima_large_2022,
+  author    = {Takeshi Kojima and
+               Shixiang Shane Gu and
+               Machel Reid and
+               Yutaka Matsuo and
+               Yusuke Iwasawa},
+  title     = {Large Language Models are Zero-Shot Reasoners},
+  journal   = {CoRR},
+  volume    = {abs/2205.11916},
+  year      = {2022},
+  url       = {https://doi.org/10.48550/arXiv.2205.11916},
+  doi       = {10.48550/arXiv.2205.11916},
+  eprinttype = {arXiv},
+  eprint    = {2205.11916},
+  timestamp = {Tue, 16 Aug 2022 23:07:05 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2205-11916.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
 }
+
 
 @inproceedings{hou_gradual_2019,
 	address = {New York, NY, USA},
@@ -291,32 +298,28 @@ Type: dataset},
 	pages = {1--16},
 }
 
-@inproceedings{liu_k-bert_2020,
-	title = {K-{BERT}: {Enabling} {Language} {Representation} with {Knowledge} {Graph}},
-	url = {https://ojs.aaai.org/index.php/AAAI/article/view/5681},
-	booktitle = {The {Thirty}-{Fourth} {AAAI} {Conference} on {Artificial} {Intelligence}, {AAAI} 2020, {The} {Thirty}-{Second} {Innovative} {Applications} of {Artificial} {Intelligence} {Conference}, {IAAI} 2020, {The} {Tenth} {AAAI} {Symposium} on {Educational} {Advances} in {Artificial} {Intelligence}, {EAAI} 2020, {New} {York}, {NY}, {USA}, {February} 7-12, 2020},
-	publisher = {AAAI Press},
-	author = {Liu, Weijie and Zhou, Peng and Zhao, Zhe and Wang, Zhiruo and Ju, Qi and Deng, Haotang and Wang, Ping},
-	year = {2020},
-	pages = {2901--2908},
-}
+@inproceedings{liu_k-bert_2020, 
+title={K-BERT: Enabling Language Representation with Knowledge Graph}, 
+volume={34}, 
+url={https://ojs.aaai.org/index.php/AAAI/article/view/5681}, 
+DOI={10.1609/aaai.v34i03.5681},  
+number={03}, 
+booktitle={Proceedings of the AAAI}, 
+author={Liu, Weijie and Zhou, Peng and Zhao, Zhe and Wang, Zhiruo and Ju, Qi and Deng, Haotang and Wang, Ping}, 
+year={2020}, 
+month={Apr.}, 
+pages={2901-2908} }
+
 
 @incollection{arabnia_when_2021,
-	address = {Cham},
-	title = {When {Entity} {Resolution} {Meets} {Deep} {Learning}, {Is} {Similarity} {Measure} {Necessary}?},
-	isbn = {978-3-030-70295-3 978-3-030-70296-0},
-	url = {https://link.springer.com/10.1007/978-3-030-70296-0_10},
-	language = {en},
-	urldate = {2022-10-05},
-	booktitle = {Advances in {Artificial} {Intelligence} and {Applied} {Cognitive} {Computing}},
-	publisher = {Springer International Publishing},
-	author = {Li, Xinming and Talburt, John R. and Li, Ting and Liu, Xiangwen},
-	editor = {Arabnia, Hamid R. and Ferens, Ken and de la Fuente, David and Kozerenko, Elena B. and Olivas Varela, José Angel and Tinetti, Fernando G.},
-	year = {2021},
-	doi = {10.1007/978-3-030-70296-0_10},
-	note = {Series Title: Transactions on Computational Science and Computational Intelligence},
-	pages = {127--140},
+  title={When Entity Resolution Meets Deep Learning, Is Similarity Measure Necessary?},
+  author={Li, Xinming and Talburt, John R and Li, Ting and Liu, Xiangwen},
+  booktitle={Advances in Artificial Intelligence and Applied Cognitive Computing},
+  pages={127--140},
+  year={2021},
+  publisher={Springer}
 }
+
 
 @article{enriquez_entity_2017,
 	title = {Entity reconciliation in big data sources: {A} systematic mapping study},
@@ -496,6 +499,7 @@ Type: dataset},
 	pages = {6433--6441},
 }
 
+
 @article{geerts_cleaning_2020,
 	title = {Cleaning data with {Llunatic}},
 	volume = {29},
@@ -596,22 +600,22 @@ Type: dataset},
 }
 
 @inproceedings{hulsebos_sherlock_2019,
-	address = {New York, NY, USA},
-	series = {{KDD} '19},
-	title = {Sherlock: {A} {Deep} {Learning} {Approach} to {Semantic} {Data} {Type} {Detection}},
-	isbn = {978-1-4503-6201-6},
-	shorttitle = {Sherlock},
-	url = {http://doi.org/10.1145/3292500.3330993},
-	doi = {10.1145/3292500.3330993},
-	abstract = {Correctly detecting the semantic type of data columns is crucial for data science tasks such as automated data cleaning, schema matching, and data discovery. Existing data preparation and analysis systems rely on dictionary lookups and regular expression matching to detect semantic types. However, these matching-based approaches often are not robust to dirty data and only detect a limited number of types. We introduce Sherlock, a multi-input deep neural network for detecting semantic types. We train Sherlock on \$686,765\$ data columns retrieved from the VizNet corpus by matching \$78\$ semantic types from DBpedia to column headers. We characterize each matched column with \$1,588\$ features describing the statistical properties, character distributions, word embeddings, and paragraph vectors of column values. Sherlock achieves a support-weighted F\$\_1\$ score of \$0.89\$, exceeding that of machine learning baselines, dictionary and regular expression benchmarks, and the consensus of crowdsourced annotations.},
-	urldate = {2022-09-15},
-	booktitle = {Proceedings of the 25th {ACM} {SIGKDD} {International} {Conference} on {Knowledge} {Discovery} \& {Data} {Mining}},
-	publisher = {Association for Computing Machinery},
-	author = {Hulsebos, Madelon and Hu, Kevin and Bakker, Michiel and Zgraggen, Emanuel and Satyanarayan, Arvind and Kraska, Tim and Demiralp, Çagatay and Hidalgo, César},
-	month = jul,
-	year = {2019},
-	keywords = {deep learning, semantic types, tabular data, type detection},
-	pages = {1500--1508},
+  author    = {Madelon Hulsebos and
+               Kevin Zeng Hu and
+               Michiel A. Bakker and
+               Emanuel Zgraggen and
+               Arvind Satyanarayan and
+               Tim Kraska and
+               {\c{C}}agatay Demiralp and
+               C{\'{e}}sar A. Hidalgo},
+  title     = {Sherlock: {A} Deep Learning Approach to Semantic Data Type Detection},
+  booktitle = {Proceedings of the 25th {ACM} {SIGKDD} International Conference on {KDD} 2019},
+  pages     = {1500--1508},
+  publisher = {{ACM}},
+  year      = {2019},
+  url       = {https://doi.org/10.1145/3292500.3330993},
+  doi       = {10.1145/3292500.3330993},
+  biburl    = {https://dblp.org/rec/conf/kdd/HulsebosHBZSKDH19.bib}
 }
 
 @article{ebraheem_distributed_2018,
@@ -631,22 +635,20 @@ Type: dataset},
 }
 
 @inproceedings{suhara_annotating_2022,
-	address = {New York, NY, USA},
-	series = {{SIGMOD} '22},
-	title = {Annotating {Columns} with {Pre}-trained {Language} {Models}},
-	isbn = {978-1-4503-9249-5},
-	url = {http://doi.org/10.1145/3514221.3517906},
-	doi = {10.1145/3514221.3517906},
-	abstract = {Inferring meta information about tables, such as column headers or relationships between columns, is an active research topic in data management as we find many tables are missing some of this information. In this paper, we study the problem of annotating table columns (i.e., predicting column types and the relationships between columns) using only information from the table itself. We develop a multi-task learning framework (called Doduo) based on pre-trained language models, which takes the entire table as input and predicts column types/relations using a single model. Experimental results show that Doduo establishes new state-of-the-art performance on two benchmarks for the column type prediction and column relation prediction tasks with up to 4.0\% and 11.9\% improvements, respectively. We report that Doduo can already outperform the previous state-of-the-art performance with a minimal number of tokens, only 8 tokens per column. We release a toolbox (https://github.com/megagonlabs/doduo) and confirm the effectiveness of Doduo on a real-world data science problem through a case study.},
-	urldate = {2022-09-15},
-	booktitle = {Proceedings of the 2022 {International} {Conference} on {Management} of {Data}},
-	publisher = {Association for Computing Machinery},
-	author = {Suhara, Yoshihiko and Li, Jinfeng and Li, Yuliang and Zhang, Dan and Demiralp, Çağatay and Chen, Chen and Tan, Wang-Chiew},
-	month = jun,
-	year = {2022},
-	keywords = {language models, multi-task learning, table understanding},
-	pages = {1493--1503},
+author = {Suhara, Yoshihiko and Li, Jinfeng and Li, Yuliang and Zhang, Dan and Demiralp, \c{C}a\u{g}atay and Chen, Chen and Tan, Wang-Chiew},
+title = {Annotating Columns with Pre-Trained Language Models},
+year = {2022},
+publisher = {Association for Computing Machinery},
+url = {https://doi.org/10.1145/3514221.3517906},
+doi = {10.1145/3514221.3517906},
+booktitle = {Proceedings of the 2022 International Conference on Management of Data},
+pages = {1493–1503},
+numpages = {11},
+keywords = {table understanding, multi-task learning, language models},
+series = {SIGMOD '22}
 }
+
+
 
 @misc{magellandata,
 
