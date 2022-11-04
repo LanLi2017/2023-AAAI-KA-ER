@@ -1,7 +1,11 @@
 % TODO: dataset statistic table
 \subsection{Dataset}
 
-We report experiment results over the Magellan datasets \cite{magellandata}. The data collection contains datasets designed for entity matching tasks across various domains. The overview of the datasets used in this study is shown in Table \ref{tab:dataset_overview}.
+KAER is evaluated on the Magellan datasets \cite{magellandata} across various domains. 
+%The data collection contains datasets designed for entity matching tasks . 
+The overview of the datasets used in this study is shown in Table~\ref{tab:dataset_overview}. 
+The Magellan datasets contain three types of datasets: dirty dataset, structured dataset, and textual dataset.
+In particular, the dirty version of datasets is generated from the clean version by randomly removing values of attributes and appending the initial values to another randomly selected attribute~\cite{li_deep_2020}.
 
 \begin{table}[h]
 \centering
@@ -21,8 +25,9 @@ Textual                & Abt-Buy            & product  & 9,575  & 1,028 & 3 \\ \
 }
 \caption{Dataset Summary}
 \label{tab:dataset_overview}
+\vspace{-0.8cm}
 \end{table}
-\vspace{-0.5cm}
+
 % \subsection{Implementation Details}
 % We use RoBERTa-base as the backbone model. 
 
@@ -32,25 +37,39 @@ Textual                & Abt-Buy            & product  & 9,575  & 1,028 & 3 \\ \
 
 
 \subsection{Results}
-We present our experiment results in Table \ref{tab:injection_results}.
-
-
+The experimental results are presented in Table \ref{tab:injection_results}.
 
 
 \textit{Knowledge injection performs better on smaller datasets.}
-We observe from our experiment results that the incorporation of external knowledge is able to improve the entity resolution performance. However, this improvement is found to be more significant on datasets with a smaller amount of training data (e.g., iTunes-Amazon). The reason might be that given fewer training instances, it becomes harder for the language model to learn enough information in order to correctly distinguish between different entities. 
-Through prompting, the model is provided with additional knowledge to augment the learning process. The results show that our proposed knowledge augmentation methods are able to improve the model performance over the state-of-the-art Ditto model, especially in a data-scarce context.
+According to the experimental results, incorporating external knowledge can improve the performance on entity resolution tasks. In particular, the proposed knowledge augmentation methods outperform the two baseline models in a data-scarce context.
+% This improvement is found to be more significant on datasets with a smaller amount of training data. 
+% The results show that our proposed knowledge augmentation methods can improve the model performance over the state-of-the-art Ditto model, especially in a data-scarce context. 
+% the F1 score of most knowledge injection methods and prompting methods are higher than the F1 score of baseline model Ditto 
+For example, \textbf{KAER (RoBERTa + CST)} outperforms both baseline models Roberta and Ditto by 23.5\% and 13.1\% $\uparrow$ on dataset Dirty/iTunes-Amazon and 7.4\% and 38.8\% $\uparrow$ on dataset Structured/iTunes-Amazon. The two baseline models perform worse on smaller datasets because the language model might not be able to learn enough information to distinguish between different entities, given fewer training instances correctly. 
+ 
 % \textit{Prompting with "/" performs better than space and K-BERT style injection.}
-We also found that using "/" to prompt the model with additional knowledge performs better than using space and K-BERT style prompting in most scenarios. However, we also observe prompting with K-BERT style achieved better performance in datasets with smaller text lengths. 
+Through prompting, the model is provided with additional knowledge to augment the learning process. We found that using slash ``/'' to prompt the model with additional knowledge performs better than using space and \textbf{A}dditional \textbf{P}osition \textbf{E}ncoding (APE) prompting in most scenarios. For example, \textbf{KAER (RoBERTa+CST+EL+/)} performs better than the other two prompting methods 
+%space and APE \textbf{KAER (RoBERTa+CST+EL)} and \textbf{KAER(RoBERTa+CST+EL+APE)} 
+on dataset Dirty/DBLP-GoogleScholar. Moreover, prompting with APE achieved better performance in datasets with smaller text lengths. For example, \textbf{KAER (RoBERTa+CST+APE} reaches the best F1 score (77.9\%) on dataset Structured/Amazon-Google, which contains the smallest text lengths.  
 
-\textit{Knowledge injection does not perform well on certain domain-specific datasets (e.g., scholarly publications).}
-The datasets used in our experiments span several different domains. By using our proposed knowledge augmentation methods (e.g., entity linking), records from certain domains, such as music and product, benefit from more accurate retrieval knowledge, since the entities mentioned in the data are more general. 
-However, datasets from domains like publications require more domain-specific or even expert knowledge rather than general commonsense. Our knowledge injection methods are mostly designed for retrieving general knowledge, thus resulting in lower performance over datasets such as DBLP-GoogleScholar and DBLP-ACM. For future improvement, additional domain-specific knowledge retrieval models should be incorporated for knowledge injection. 
+\textit{Knowledge injection does not perform well datasets from certain domains.}
+The datasets used in our experiments span several different domains. Using our proposed knowledge augmentation methods (e.g., entity linking), records from certain domains, such as music and online product, benefit from more accurate retrieved knowledge. For example, \textbf{KAER(RoBERTa+CST)} achieves the best F1-score on the musical dataset iTunes-Amazon, as analyzed above, it outperforms both baseline models significantly. \textbf{KAER(RoBERTa+CST+/)} achieves the best F1-score, i.e., 91.7\%, on the textual dataset Abt-Buy from the online product domain. One potential reason for this notable improvement is that the entities mentioned in the datasets from these domains are more general.
 
-\textit{Knowledge augmentation relying on input data quality might result in worse matching results.}
-We notice that the prediction result of Sherlock and Doduo rely on the quality of the input dataset a lot. For instance, the dirty version of iTunes-Amazon dataset is generated from the clean version by randomly emptying attributes and appending their values to another randomly selected
-attribute \cite{li_deep_2020}. Undoubtedly, this will result in an inconsistency between the semantics of schema information and data values. In addition, this will add up challenges for Sherlock or Duduo to do the semantic data types detection. On the other hand, Ditto with Sherlock achieves the best performance with the dirty inputs compared with the Ditto without any knowledge injection, which also verifies the importance and necessity of knowledge augmentation for better language understanding on entity resolution tasks.
+However, publication datasets from domains like citation require more domain-specific or even expert knowledge rather than general commonsense. Our knowledge injection methods are primarily designed for retrieving general knowledge. Thus, for datasets, like Structured/DBLP-ACM, \textbf{KAER(RoBERTa+CST)} performs as well as the baseline model, achieving the best F1-score 98.8\%, \textbf{RoBERTa}, but all the other KAER models perform worse. For future improvement, additional external expert knowledge from the citation domain should be incorporated for knowledge injection. 
+
+\textit{Knowledge augmentation is affected by data quality.}
+%We notice that 
+KAER, with knowledge augmentation methods, outperforms the baseline models on dirty datasets. However, F1 scores on the dirty version of the dataset DBLP-GoogleScholar are lower than the results on the structured version (cleaner version). One reason might be that the misleading predictions based on the dirty input by CST result in semantic noise and propagate to the PLMs.
+On the other hand, according to the results, knowledge augmentation can advance the robustness of the model on low-quality data. For instance, \textbf{KAER+CST} and \textbf{KAER+CST+EL+/} outperform both baseline models with the dirty datasets.
+% which verifies the importance and necessity of knowledge augmentation for better language understanding on entity resolution tasks.
 
 
+% The prediction performance of our model heavily relies on the quality of the input dataset, in particular, the semantic column types based on the characteristics of the input data.  
+ 
+
+
+
+% For instance, the dirty version of iTunes-Amazon dataset is generated from the clean version by randomly emptying attributes and appending their values to another randomly selected
+% attribute \cite{li_deep_2020}.
 % \textit{Cascading error from knowledge injector leads to lower performance.} 
 % xxx

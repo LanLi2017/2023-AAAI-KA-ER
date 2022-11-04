@@ -24,7 +24,13 @@
 \usepackage{algorithmic}
 \usepackage{amsmath}
 \usepackage{booktabs}
+\usepackage{xcolor}
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{$#2$}}%
+\newcommand*{\Resize}[2]{\resizebox{#1}{!}{$#2$}}%
+\newcommand{\bl}[1]{{\textsf{\textcolor{blue}{[Bertram: #1]}}}}
 
+\definecolor{neonfuchsia}{rgb}{1.0, 0.25, 0.39}
+\newcommand{\yiren}[1]{{\small\textcolor{neonfuchsia}{\bf [*** Yi-Ren: #1]}}}
 %
 % These are are recommended to typeset listings but not required. See the subsubsection on listing. Remove this block if you don't have listings in your paper.
 \usepackage{newfloat}
@@ -106,7 +112,7 @@
 % nouns, adverbs, adjectives should be capitalized, including both words in hyphenated terms, while
 % articles, conjunctions, and prepositions are lower case unless they
 % directly follow a colon or long dash
-\title{\textit{KAER}: Knowledge Augmented Pretrained Language Model for Entity Resolution}
+\title{\textit{KAER}: A Knowledge Augmented Pre-Trained Language Model for Entity Resolution}
 \author{
     Anonymous Authors
 }

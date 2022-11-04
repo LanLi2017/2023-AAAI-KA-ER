@@ -4,37 +4,44 @@
 %  challenge 3: "too much knowledge incorporation may divert the sentence
 % from its correct meaning, which is called knowledge
 % noise (KN) issue." \cite{liu_k-bert_2020}
-Recent studies using \emph{Transformer-based pre-trained language models} (PLMs) have shown their strong ability in performing various types of NLP tasks \cite{min_recent_2021}. However, not many studies have discussed the application of PLMs in the domain of data cleaning. As a data cleaning task well-discussed by existing research, entity resolution aims to identify the entries referring to the same real-world entities within or across databases~\cite{christen_data_2012}. 
-
+Recent studies using \emph{transformer-based Pre-trained Language Models} (PLMs) have shown their strong ability to perform various types of NLP tasks \cite{min_recent_2021}. However, few studies have discussed the application of PLMs in the domain of data cleaning~\cite{li_deep_2020,narayan_can_2022,vos2022towards}.  
+Entity resolution is a common data cleaning task that aims to identify the entries referring to the same real-world entities within or across databases~\cite{christen_data_2012}. 
+% \bl{Entity resolution is a common data cleaning task ...}
 
 
 % Entity resolution, also known as entity matching, record linkage, or data deduplication, is a classical problem in data integration~\cite{zhao_auto-em_2019}. 
 % The typical process of entity resolution contains data preparation, data indexing or blocking, and data matching. %  challenge 1: missing domain knowledge to help prepare data;
 
 % Prior work has shown that data 
-Prior work has shown that performing data preparation to clean the data before applying ML-based models for entity resolution can improve task performance,  e.g., tokenization or stemming, for threshold-based classifiers \cite{koumarelas_data_2020}. However, it still remains under-studied how data preparators can be applied to datasets from different domains or different types. For instance, the source data often cover varied domains (e.g., publications, online products, geolocations) and in different formats (e.g., numerical, textual, non/structured). 
+% Prior work has shown that performing data cleaning before applying ML-based models for entity resolution can improve task performance,  e.g., tokenization or stemming, for threshold-based classifiers \cite{koumarelas_data_2020}.
+% \bl{This sentence needs to be re-written for clarity.}.  
+% However, it still remains under-studied how data preparators can be applied to datasets from different domains or different types. \bl{it is still an open problem how data preparatory can be applied ... and different data types} For instance,
 
-In many situations, raw records are stored from heterogeneous sources, while most existing techniques on entity resolution assume the same schema for records from different sources \cite{elmagarmid_duplicate_2007}. On the contrary, records from different sources usually follow different structures at the attribute level \cite{enriquez_entity_2017, arabnia_when_2021}. 
+
+
+% \bl{Most ...... the same schema ...., however, in many situations, data from different sources are heterogeneous and use different schema.(heterogeneous schema}
+
+Most existing techniques on entity resolution assume the same schema for records from different sources \cite{elmagarmid_duplicate_2007}. However, in many situations, raw records are obtained from heterogeneous sources and use different schema \cite{enriquez_entity_2017, arabnia_when_2021}. In addition, source data often cover varied domains (e.g., publications, online products, musicians) and in different formats (e.g., numerical, textual, geolocations). 
 % , which adds more difficulties for entity resolution tasks 
 %Christian (2012) mentioned that schema standardization of records is an essential data preparation for entity resolution task~\cite{christen_data_2012}. 
 All of these increase the difficulty for practitioners to perform entity resolution tasks without prior knowledge of the domain-specific information about the data.
 % Hulsebos et al \cite{hulsebos_sherlock_2019} introduced Sherlock, a multi-input deep neural network for detecting semantic data types, in which they match 78 semantic types from DBpedia to column headers.  Similarly, Doduo \cite{suhara_annotating_2022}, a multi-task learning framework that is based on
 % \emph{pre-trained language models} (PLMs) can predict column types and column relations. 
-Thus, we hypothesize that enhancing the semantics knowledge of the schema information can contribute to entity resolution tasks.  
+Thus, we hypothesize that enhancing the external knowledge at the schema and entity level can improve entity resolution tasks.  
 
-With transformer-based \emph{pre-trained language models} (PLMs), recent studies draw increasing attention to entity resolution problems~\cite{li_deep_2020, trabelsi_dame_2022}. However, current studies show that the performance might not be ideal for simply inputting the serialized entity pairs into PLMs for classification. Ditto \cite{li_deep_2020}, which injects domain information, in particular, an \emph{entity type}, and standardizes the numerical formats to improve the performance before feeding the serialized entity pairs into PLMs.
-We move one step further by injecting more external knowledge at the schema level and entity level. In addition, the format to inject the external knowledge into the initial entity pairs may vary the performance of PLMs. %Therefore, we further explore three prompting methods  
+With transformer-based PLMs, recent studies draw increasing attention to entity resolution problems~\cite{li_deep_2020, trabelsi_dame_2022}. However, current studies show that the performance might not be ideal when simply inputting the serialized entity pairs into PLMs for classification. Ditto \cite{li_deep_2020} injects domain information: pre-defined entity types (i.e., PRODUCT and NUM), and standardizes the numerical formats to improve the performance before feeding the serialized entity pairs into PLMs.
 
-%On the other hand, to avoid knowledge noise (KN) issues, i.e., the overwhelming knowledge incorporation might divert the correct meaning of the record \cite{liu_k-bert_2020}, we apply soft-position and visible matrix from K-BERT to limit the impact of external knowledge injection. 
+We push this idea further by injecting more external knowledge at the schema and entity level. Knowledge injection at the schema level aims to infer the fine-grained semantic types (e.g., ALBUM, ARTIST, PUBLISHER) for each column based on data values. For the entity level, we identify entity mentions from WikiData and annotate the initial text with semantic type information of the linked entities. In addition, different formats used to inject external knowledge into the initial entity pairs may vary the performance of PLMs. Thus, we further explore three prompting methods: space, slash, and additional position encoding of PLMs.
+% soft position encoding with the visible matrix. 
 
 % Contributions:?
-Starting from state-of-the-art methods using PLMs, Ditto \cite{li_deep_2020}, we enhance existing method by:
+To summarize, starting from state-of-the-art method Ditto \cite{li_deep_2020}, we propose a framework for  \textbf{K}nowledge \textbf{A}ugmented \textbf{E}ntity \textbf{R}esolution (KAER):
 \begin{itemize}
-    \item using column semantic type inference and entity linking in order to inject domain-specific information as additional signals to pre-trained language models.
+    \item using \textbf{C}olumn \textbf{S}emantic \textbf{T}ype (CST) inference and \textbf{E}ntity \textbf{L}inking (EL) in order to inject domain-specific information as additional signals to pre-trained language models. 
     \item leveraging three prompting methods to better augment the acquired knowledge to PLMs.
+    \item analyzing the effectiveness of different knowledge injection and prompting methods on entity resolution tasks from different domains and data types.
 \end{itemize}
- 
-
+%\vspace{-0.3cm}
 
 % \section{Research Problems}
 % In this project, we target the following research questions:
