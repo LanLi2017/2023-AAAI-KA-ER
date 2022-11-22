@@ -3,7 +3,7 @@
 
 \subsection{Notation of Entity Resolution Task}
 The formulation of the entity resolution task in this paper is based on the current work by~\citet{li_deep_2020}. The input of the entity resolution task consists of a set $M \subseteq D_1 \times D_2$, where $D_1$ and $D_2$ are two sets of data entry collections that contain duplicated entries.  
-For each data entry, $e \in {(attr_i, val_i)}_{1 \leq i \leq N}$ where $N$ is the number of attributes, and $(e_1, e_2) \in M$. The task discussed in this paper focuses on: for each data entry pair $(e_1, e_2) \in M$, determine whether $e_1$ and $e_2$ refer to the same data entity.
+For each data entry, $e \in {(col_i, val_i)}_{1 \leq i \leq N}$ where $N$ is the number of columns, and $(e_1, e_2) \in M$. The task discussed in this paper focuses on: for each data entry pair $(e_1, e_2) \in M$, determine whether $e_1$ and $e_2$ refer to the same data entity.
 % \yiren{TODO}
 
 \subsection{Model Overview}
@@ -31,11 +31,11 @@ where y denotes whether $e_1$ and $e_2$ refer to the same entity, and $s(\cdot,\
 where $serialize(\cdot)$ serializes each data entry.
 \begin{equation}\Scale[0.8]{
 \begin{split}
-serialize(e_i) ::= & \text{[COL]}\ f(attr_1,pt)\ \text{[VAL]}\ g(val_1,pt)\ ...\\
-            & \text{[COL]}\ f(attr_N,pt)\ \text{[VAL]}\ g(val_N,pt)   
+serialize(e_i) ::= & \text{[COL]}\ f(col_1,pt)\ \text{[VAL]}\ g(val_1,pt)\ ...\\
+            & \text{[COL]}\ f(col_N,pt)\ \text{[VAL]}\ g(val_N,pt)   
 \end{split}}
 \end{equation}
-where $f(attr_i, pt)$ denotes the semantic column type injection with prompting method $pt$, and $g(val_i, pt)$ denotes the entity linking injection with prompting method $pt$. The following sections describe  column semantic type injection, entity linking, and three prompting methods.
+where $f(col_i, pt)$ denotes the semantic column type injection with prompting method $pt$, and $g(val_i, pt)$ denotes the entity linking injection with prompting method $pt$. The following sections describe  column semantic type injection, entity linking, and three prompting methods.
 
 % \subsubsection{Knowledge Augmentation}
 
@@ -151,10 +151,10 @@ The slash symbol is chosen because it contains a semantic meaning equivalent to 
 %     s(e_1, e_2) ::= [COL] attr_i [VAL] val_i [SEP] [COL] attr_j [val] val_j
 % \end{equation}
 
-\subsubsection{Prompting with additional position encoding.}
-The domain knowledge injection modifies the initial input sequence in two dimensions, including the token position and token semantics. More specifically, the token from the initial input sequence has a different absolute position when the template-based prompting is concatenated. In addition, the injected knowledge for a specific entity mention is shared with the surrounding tokens in the same sequence. These two modifications might introduce erroneous knowledge and overload to the framework. 
+\subsubsection{Prompting with \cam{constrained tuning \st{additional position encoding}}.}
+\cam{Inspired by hard-soft prompt hybrid tuning~\cite{han_2021},  prompting with constrained tuning is used to generate the token embedding by controlling the visible area of the augmented knowledge only to its corresponding entity mentions or column names.} \cam{\st{The} This type of} domain knowledge injection modifies the initial input sequence in two dimensions, including the token position and token semantics. More specifically, the token from the initial input sequence has a different absolute position when the template-based prompting is concatenated. In addition, the injected knowledge for a specific entity mention is shared with the surrounding tokens in the same sequence. These two modifications might introduce erroneous knowledge and overload to the framework.
 
-To limit the erroneous knowledge and overload, we leverage additional position encoding, i.e., soft-position encoding and visible matrix, as an additional input of our backbone model, inspired by K\-Bert~\cite{liu_k-bert_2020}. Here, the knowledge-injected sequence is constructed into a tree structure, where the injected knowledge subsequences are considered branches. In this way, as shown in Figure~\ref{fig:framework}, the soft-position encoding assigns the initial tokens the same position encoding in the knowledge-injected sequence as those in the initial input sequence, and assigns the injected knowledge tokens the position in the branches. The visible matrix $V\in \mathcal{R}^{N \times N}$ is a binary matrix, where the injected knowledge token is only visible to itself and the corresponding entity mention or column name tokens, and set as 1, denoted as follows:
+To limit the erroneous knowledge and overload, we leverage \cam{constrained tuning \st{additional position encoding}}, i.e., soft-position encoding and visible matrix, as an additional input of our backbone model, inspired by K\-Bert~\cite{liu_k-bert_2020}. Here, the knowledge-injected sequence is constructed into a tree structure, where the injected knowledge subsequences are considered branches. In this way, as shown in Figure~\ref{fig:framework}, the soft-position encoding assigns the initial tokens the same position encoding in the knowledge-injected sequence as those in the initial input sequence, and assigns the injected knowledge tokens the position in the branches. The visible matrix $V\in \mathcal{R}^{N \times N}$ is a binary matrix, where the injected knowledge token is only visible to itself and the corresponding entity mention or column name tokens, and set as 1, denoted as follows:
 \begin{equation}
     V_{ij} = \begin{cases}
     1, & \text{if $token_i$ \text{and} $token_j$ co-occur}.\\
