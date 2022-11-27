@@ -21,7 +21,7 @@ Entity resolution is a common data cleaning task that aims to identify the entri
 
 % \bl{Most ...... the same schema ...., however, in many situations, data from different sources are heterogeneous and use different schema.(heterogeneous schema}
 
-Most existing techniques on entity resolution assume the same schema for records from different sources \cite{elmagarmid_duplicate_2007}. However, in many situations, raw records are obtained from heterogeneous sources and use different schema \cite{enriquez_entity_2017, arabnia_when_2021}. In addition, source data often cover varied domains (e.g., publications, online products, musicians) and in different formats (e.g., numerical, textual, geolocations). 
+Most existing techniques on entity resolution assume the same schema for records from different sources \cite{elmagarmid_duplicate_2007}. However, in many situations, raw records are obtained from heterogeneous sources and use different schema \cite{enriquez_entity_2017, arabnia_when_2021}. In addition, source data is often from varied domains (e.g., publications, online products, musicians) and in different formats (e.g., numerical, textual, geolocations). 
 % , which adds more difficulties for entity resolution tasks 
 %Christian (2012) mentioned that schema standardization of records is an essential data preparation for entity resolution task~\cite{christen_data_2012}. 
 All of these increase the difficulty for practitioners to perform entity resolution tasks without prior knowledge of the domain-specific information about the data.
@@ -32,7 +32,7 @@ Thus, we hypothesize that enhancing the external knowledge at the schema and ent
 With transformer-based PLMs, recent studies draw increasing attention to entity resolution problems~\cite{li_deep_2020, trabelsi_dame_2022}. However, current studies show that the performance might not be ideal when simply inputting the serialized entity pairs into PLMs for classification. Ditto \cite{li_deep_2020} injects domain information: pre-defined entity types (i.e., PRODUCT and NUM), and standardizes the numerical formats to improve the performance before feeding the serialized entity pairs into PLMs.
 
 We push this idea further by injecting more external knowledge at the schema and entity level. Knowledge injection at the schema level aims to infer the fine-grained semantic types (e.g., ALBUM, ARTIST, PUBLISHER) for each column based on data values. 
-For the entity level, entity mentions are identified from WikiData and annotated in the initial text with semantic type information of the linked entities. In addition, different formats used to inject external knowledge into the initial entity pairs may vary the performance of PLMs. Thus, three prompting methods are further explored in this study: space, slash, and \cam{constrained tuning \st{additional position encoding}} of PLMs.
+For the entity level, entity mentions are identified from WikiData and annotated in the initial text with semantic type information of the linked entities. In addition, different formats used to inject external knowledge into the initial entity pairs may vary the performance of PLMs. Thus, three prompting methods are further explored in this study: space, slash, and constrained tuning of PLMs.
 % soft position encoding with the visible matrix. 
 
 % Contributions:?
@@ -40,7 +40,7 @@ To summarize, starting from state-of-the-art method Ditto \cite{li_deep_2020}, w
 \begin{itemize}
     \item using \textbf{C}olumn \textbf{S}emantic \textbf{T}ype (CST) inference and \textbf{E}ntity \textbf{L}inking (EL) in order to inject domain-specific information as additional signals to pre-trained language models. 
     \item leveraging three prompting methods to better augment the acquired knowledge to PLMs.
-    \item analyzing the effectiveness of different knowledge injection and prompting methods on entity resolution tasks from different domains and data types.
+    \item analyzing the effectiveness of different combinations of knowledge injection and prompting methods on entity resolution tasks from different domains and data types.
 \end{itemize}
 %\vspace{-0.3cm}
 
