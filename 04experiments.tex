@@ -33,7 +33,7 @@ Textual                & Abt-Buy            & product  & 9,575  & 1,028 & 3 \\ \
 \subsection{Results}
 The experimental results are presented in Table \ref{tab:injection_results}.
 
-\textit{Knowledge injection performs better on smaller datasets.}
+\textit{Knowledge augmentation performs better on smaller datasets.}
 According to the experimental results, incorporating external knowledge can improve the performance on entity resolution tasks. In particular, the proposed knowledge augmentation methods outperform the two baseline models in a data-scarce context.
 % This improvement is found to be more significant on datasets with a smaller amount of training data. 
 % The results show that our proposed knowledge augmentation methods can improve the model performance over the state-of-the-art Ditto model, especially in a data-scarce context. 
@@ -45,7 +45,7 @@ For example, \textbf{KAER (RoBERTa+EL+/)} outperforms both baseline models Rober
 % on dataset Structured/DBLP-GoogleScholar. 
 Prompting with PCT achieves better performance in datasets with smaller text lengths. For example, \textbf{KAER (RoBERTa+CST+PCT)} reaches the best F1 score (76.25\%) on dataset Structured/Amazon-Google, which contains the smallest length of serialized data entry. Moreover, with the test statistic higher than the t value with $\alpha=0.01$, \textbf{KAER (RoBERTa+CST+PCT)} on Structured/Amazon-Google makes a significant difference compared to both baseline models, at 99\% confidence level.
 
-\textit{Knowledge injection does not perform well on datasets from certain domains.}
+\textit{Knowledge augmentation does not perform well on datasets from certain domains.}
 The datasets used in our experiments span several different domains. Using our proposed knowledge augmentation methods (CST and EL), records from certain domains, such as music and online product, benefit from more accurate retrieved knowledge.
 For example, \textbf{KAER (RoBERTa+CST+/)} achieves the best F1-score, i.e., 92.61\%, on the textual dataset Abt-Buy from the online product domain.
 \textbf{KAER (RoBERTa+EL+/)} achieves the best F1-score (81.82\%) on the musical dataset Dirty/iTunes-Amazon. %As analyzed above, it outperforms both baseline models significantly. 
