@@ -1,0 +1,29 @@
+\paragraph{A. Hyperparameter Settings.} 
+Baseline and KAER models share the same hyperparameter setting, in which the batch size equals 64, the max length equals 512, the learning rate is 3e-5, and the number of training epochs is 20. 
+%Other parameters keep unchanged with the default setting from Ditto. 
+%-lr", type=float, default=3e-5)
+%    parser.add_argument("--n_epochs", type=int, default=20)
+
+\paragraph{B. Baseline models.} 
+\begin{table}[!b]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Dataset                  & Injection       \\ \hline
+dirty/DBLP-Google        & Ditto + General \\ \hline
+dirty/iTunes-Amazon      & Ditto + Product \\ \hline
+structured/iTunes-Amazon & Ditto + Product \\ \hline
+structured/Amazon-Google & Ditto + Product \\ \hline
+structured/DBLP-ACM      & Ditto + General \\ \hline
+structured/DBLP-Google   & Ditto + General \\ \hline
+textual/Abt-Buy          & Ditto + Product \\ \hline
+\end{tabular}
+\caption{Datasets and Corresponding Ditto default knowledge injection methods}
+\label{tab:dittoinject}
+\end{table}
+This paper includes two baseline models, i.e., RoBERTa without any knowledge injection and Ditto with its default knowledge injection methods. 
+
+In detail, Table~\ref{tab:dittoinject} shows the datasets and corresponding injection methods utilized by Ditto. "+ General" indicates that Ditto injects seven entity types into the corresponding dataset. The seven types include 'PERSON', 'ORG', 'LOC', 'PRODUCT', 'DATE', 'QUANTITY', and 'TIME'. "+ Product" indicates that Ditto annotates as 'PORODUCT', any entity mentions in the following types, i.e., 'NORP', 'GPE', 'LOC', 'PERSON', and 'PRODUCT'.
+
+\paragraph{C. Two-sided Paired T-test.}
+The two-sided paired T-test is implemented to test whether the predictions of different models are significantly different. 
