@@ -13,27 +13,63 @@
   \textbf{\begin{tabular}[l]{@{}l@{}}DBLP\\ -\\ ACM\end{tabular}} &
   \multicolumn{1}{l|}{\textbf{\begin{tabular}[l]{@{}l@{}}DBLP\\ -\\ GoogleScholar\end{tabular}}} &
   \textbf{\begin{tabular}[c]{@{}l@{}}Abt\\ -\\ Buy\end{tabular}} \\ \hline
-RoBERTa                          & 95.81                             & 72.73                       & 61.76                       & 73.12                       & 98.77                   & 95.32                             & 88.41                                \\
-Ditto                            & 95.54**                           & 60.38                       & 47.06**                     & 74.44**                     & 98.55*                  & 95.85                             & 88.89                                \\ \hline
-KAER ( RoBERTa + CST )           & 95.47**                           & 62.96                       & 80.70*                      & 68.70++                   & 98.77+                 & 95.05**++                       & 92.27*                               \\
-KAER ( RoBERTa + CST + / )       & 95.74++                         & 54.90                       & \textbf{89.66}              & 74.85*++                  & \textbf{98.99+}        & 95.14*++                        & \textbf{92.61}                       \\
-KAER ( RoBERTa + CST + PCT)      & 95.20**                           & 72.00                       & 57.14++                   & \textbf{76.25**++}        & 98.09+                 & 95.62**++                       & 78.24**+                            \\
-KAER ( RoBERTa + EL )            & 95.12++                         & 50.00                       & 61.54**                     & 73.77++                   & 98.54++               & 95.72                             & 89.11*                               \\
-KAER ( RoBERTa + EL + / )        & 95.75**                           & \textbf{81.82**++}        & 86.21                       & 74.02**+                   & 98.43++               & \textbf{96.11}                    & 88.19                                \\
-KAER ( RoBERTa + EL + PCT)       & 94.80++                         & 77.78                       & 67.69+                     & 75.63**+                   & 97.04**++             & 95.29                             & 73.80**++                          \\
-KAER ( RoBERTa + CST + EL )      & \textbf{95.87*++}               & 47.06                       & 59.26**                     & 72.28*++                  & 98.43+                 & 95.65**++                       & 89.66                                \\
-KAER ( RoBERTa + CST + EL + / )  & 95.63*++                        & 63.33+                     & 57.14**                     & 75.15**++                 & 98.34*                  & 95.67**++                       & 89.81**++                          \\
-KAER ( RoBERTa + CST + EL + PCT) & 94.24++                         & 71.11**+                   & 61.29+                     & 71.37**+                   & 96.26+                 & 94.93                             & 67.20**++                          \\ \hline
+RoBERTa                          & 98.42                             & 86.24                       & 76.15                       & 94.55                       & 99.56                   & 98.26                             & 97.49                                \\
+Ditto                            & 98.35                             & 80.73                       & 75.23                       & 94.07                       & 99.47                   & 98.45                             & 97.65                                \\ \hline
+KAER ( Roberta + CST )           & 98.31                             & 81.65                       & 89.91**++                   & 93.72                       & 99.56                   & 98.19                             & 98.38**++                            \\
+KAER ( Roberta + CST + / )       & 98.40                              & 78.90*                       & \textbf{94.50**++}           & 94.64                       & \textbf{99.64}          & 98.21                             & \textbf{98.43**++}                   \\
+KAER ( Roberta + CST + PCT)      & 98.22                             & 87.16                       & 72.48                       & \textbf{94.81}              & 99.31*                  & 98.35                             & 95.62**++                            \\
+KAER ( Roberta + EL )            & 98.15                             & 77.98*                      & 81.65                       & 94.64                       & 99.47                   & 98.40                              & 97.70                                 \\
+KAER ( Roberta + EL + / )        & 98.43                   & \textbf{88.99}              & 92.66**++                   & 94.24                       & 99.43                   & \textbf{98.55*}                   & 97.44                                \\
+KAER ( Roberta + EL + PCT)       & 98.03**+                          & \textbf{88.99+}             & 80.73                       & 94.55                       & 98.95**+                & 98.24                             & 94.89**++                            \\
+KAER ( Roberta + CST + EL )      & \textbf{98.45}                    & 75.23*                      & 79.82                       & 94.11                       & 99.43                   & 98.36                             & 97.81                                \\
+KAER ( Roberta + CST + EL + / )  & 98.36                             & 79.82*                      & 80.73+                      & 94.55                       & 99.39                   & 98.36                             & 97.70                                 \\
+KAER ( Roberta + CST + EL + PCT) & 97.82**++                         & 88.07+                      & 77.98                       & 93.63*                      & 98.67**++               & 98.10+                             & 93.58**++                            \\ \hline
 \end{tabular}
 }
-\vspace{-0.2cm}
-\caption{Experimental results using different knowledge injection methods. 
+\vspace{-0.4cm}
+\caption{Experimental results using different knowledge injection methods, measured by accuracy. 
 % 99\% and 95\% confidence level of hypothesis test (paired t-test).
 The two baseline models: RoBERTa (without domain knowledge injection); and Ditto (RoBERTa and Ditto's general domain knowledge injection methods). 
 % representing the baseline model, Ditto without knowledge injection, 
-Other models represent KAER with various knowledge injection and prompting methods combined with RoBERTa. ``+CST'' indicates \textbf{C}olumn \textbf{S}emantic \textbf{T}ype injection.``+EL'' indicates knowledge injection with \textbf{E}ntity \textbf{L}inking. ``+/'' represents prompting with a slash. ``+PCT'' represents \textbf{P}rompting with \textbf{C}onstrained \textbf{T}uning, i.e., soft positions and visible matrix. All reported results are F1 scores. The paired t-test is processed between KAER injections and two baseline models, i.e., RoBERTa(*) and Ditto(+). \textbf{**} and \textbf{++} represent 99\% confidence level, and \textbf{*} and \textbf{+} represent 95\% confidence level.}%significance level ($\alpha=0.05$).} 
+Other models represent KAER with various knowledge injection and prompting methods combined with RoBERTa. ``+CST'' indicates \textbf{C}olumn \textbf{S}emantic \textbf{T}ype injection.``+EL'' indicates knowledge injection with \textbf{E}ntity \textbf{L}inking. ``+/'' represents prompting with a slash. ``+PCT'' represents \textbf{P}rompting with \textbf{C}onstrained \textbf{T}uning, i.e., soft positions and visible matrix. The paired t-test is processed between KAER injections and two baseline models, i.e., RoBERTa(*) and Ditto(+). \textbf{**} and \textbf{++} represent 99\% confidence level, and \textbf{*} and \textbf{+} represent 95\% confidence level.}%significance level ($\alpha=0.05$).} 
 \label{tab:injection_results}
 \end{table*}
+
+% \begin{table*}[!ht]
+% \centering
+% \resizebox{\linewidth}{!}{
+% \begin{tabular}{l|ll|llll|l}
+% \hline
+% \multicolumn{1}{l|}{}                  & \multicolumn{2}{c|}{\textbf{Dirty}} & \multicolumn{4}{c|}{\textbf{Structured}}                      & \textbf{Textual} \\ \hline
+% \multicolumn{1}{l|}{\textbf{Models}} &
+%   \textbf{\begin{tabular}[l]{@{}l@{}}DBLP\\ -\\ GoogleScholar\end{tabular}} &
+%   \multicolumn{1}{c|}{\textbf{\begin{tabular}[l]{@{}l@{}}iTunes\\ -\\ Amazon\end{tabular}}} &
+%   \textbf{\begin{tabular}[l]{@{}l@{}}iTunes\\ -\\ Amazon\end{tabular}} &
+%   \textbf{\begin{tabular}[l]{@{}l@{}}Amazon\\ -\\ Google\end{tabular}} &
+%   \textbf{\begin{tabular}[l]{@{}l@{}}DBLP\\ -\\ ACM\end{tabular}} &
+%   \multicolumn{1}{l|}{\textbf{\begin{tabular}[l]{@{}l@{}}DBLP\\ -\\ GoogleScholar\end{tabular}}} &
+%   \textbf{\begin{tabular}[c]{@{}l@{}}Abt\\ -\\ Buy\end{tabular}} \\ \hline
+% RoBERTa                          & 95.81                             & 72.73                       & 61.76                       & 73.12                       & 98.77                   & 95.32                             & 88.41                                \\
+% Ditto                            & 95.54**                           & 60.38                       & 47.06**                     & 74.44**                     & 98.55*                  & 95.85                             & 88.89                                \\ \hline
+% KAER ( RoBERTa + CST )           & 95.47**                           & 62.96                       & 80.70*                      & 68.70++                   & 98.77+                 & 95.05**++                       & 92.27*                               \\
+% KAER ( RoBERTa + CST + / )       & 95.74++                         & 54.90                       & \textbf{89.66}              & 74.85*++                  & \textbf{98.99+}        & 95.14*++                        & \textbf{92.61}                       \\
+% KAER ( RoBERTa + CST + PCT)      & 95.20**                           & 72.00                       & 57.14++                   & \textbf{76.25**++}        & 98.09+                 & 95.62**++                       & 78.24**+                            \\
+% KAER ( RoBERTa + EL )            & 95.12++                         & 50.00                       & 61.54**                     & 73.77++                   & 98.54++               & 95.72                             & 89.11*                               \\
+% KAER ( RoBERTa + EL + / )        & 95.75**                           & \textbf{81.82**++}        & 86.21                       & 74.02**+                   & 98.43++               & \textbf{96.11}                    & 88.19                                \\
+% KAER ( RoBERTa + EL + PCT)       & 94.80++                         & 77.78                       & 67.69+                     & 75.63**+                   & 97.04**++             & 95.29                             & 73.80**++                          \\
+% KAER ( RoBERTa + CST + EL )      & \textbf{95.87*++}               & 47.06                       & 59.26**                     & 72.28*++                  & 98.43+                 & 95.65**++                       & 89.66                                \\
+% KAER ( RoBERTa + CST + EL + / )  & 95.63*++                        & 63.33+                     & 57.14**                     & 75.15**++                 & 98.34*                  & 95.67**++                       & 89.81**++                          \\
+% KAER ( RoBERTa + CST + EL + PCT) & 94.24++                         & 71.11**+                   & 61.29+                     & 71.37**+                   & 96.26+                 & 94.93                             & 67.20**++                          \\ \hline
+% \end{tabular}
+% }
+% \vspace{-0.2cm}
+% \caption{Experimental results using different knowledge injection methods. 
+% % 99\% and 95\% confidence level of hypothesis test (paired t-test).
+% The two baseline models: RoBERTa (without domain knowledge injection); and Ditto (RoBERTa and Ditto's general domain knowledge injection methods). 
+% % representing the baseline model, Ditto without knowledge injection, 
+% Other models represent KAER with various knowledge injection and prompting methods combined with RoBERTa. ``+CST'' indicates \textbf{C}olumn \textbf{S}emantic \textbf{T}ype injection.``+EL'' indicates knowledge injection with \textbf{E}ntity \textbf{L}inking. ``+/'' represents prompting with a slash. ``+PCT'' represents \textbf{P}rompting with \textbf{C}onstrained \textbf{T}uning, i.e., soft positions and visible matrix. All reported results are F1 scores. The paired t-test is processed between KAER injections and two baseline models, i.e., RoBERTa(*) and Ditto(+). \textbf{**} and \textbf{++} represent 99\% confidence level, and \textbf{*} and \textbf{+} represent 95\% confidence level.}%significance level ($\alpha=0.05$).} 
+% \label{tab:injection_results}
+% \end{table*}
 
 % \begin{table*}[!ht]
 % \centering

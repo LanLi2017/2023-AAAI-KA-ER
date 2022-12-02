@@ -34,7 +34,10 @@
 \definecolor{neonfuchsia}{rgb}{1.0, 0.25, 0.39}
 \newcommand{\yiren}[1]{{\small\textcolor{neonfuchsia}{\bf [*** Yi-Ren: #1]}}}
 \newcommand{\vt}[1]{{\small\textcolor{blue}{\bf [*** Vetle: #1]}}}
-%
+
+\usepackage[hang,flushmargin]{footmisc}
+\newcommand\workshopnote[1]{\renewcommand\thefootnote{}\footnote{#1}}
+ 
 % These are are recommended to typeset listings but not required. See the subsubsection on listing. Remove this block if you don't have listings in your paper.
 \usepackage{newfloat}
 \usepackage{listings}
@@ -121,34 +124,26 @@
 % }
 
 %Example, Single Author, ->> remove \iffalse,\fi and place them surrounding AAAI title to use it
-\iffalse
-\title{My Publication Title --- Single Author}
-\author {
-    Author Name
-}
-\affiliations{
-    Affiliation\\
-    Affiliation Line 2\\
-    name@example.com
-}
-\fi
-
-\iffalse
-%Example, Multiple Authors, ->> remove \iffalse,\fi and place them surrounding AAAI title to use it
-\title{My Publication Title --- Multiple Authors}
+% \iffalse
+% \title{My Publication Title --- Single Author}
 \author {
     % Authors
-    First Author Name,\textsuperscript{\rm 1}
-    Second Author Name, \textsuperscript{\rm 2}
-    Third Author Name \textsuperscript{\rm 1}
+    \textsuperscript{\rm 1},
+    \textsuperscript{\rm 1},
+    Yiren Liu\textsuperscript{\rm 2},
+    Vetle Torvik\textsuperscript{\rm 1},
+    Bertram Ludaescher\textsuperscript{\rm 1}
+    % Third Author Name \textsuperscript{\rm 1}
+    % Anonymous Authors
 }
 \affiliations {
-    % Affiliations
-    \textsuperscript{\rm 1} Affiliation 1\\
-    \textsuperscript{\rm 2} Affiliation 2\\
-    firstAuthor@affiliation1.com, secondAuthor@affilation2.com, thirdAuthor@affiliation1.com
+%     % Affiliations
+    \textsuperscript{\rm 1} School of Information Sciences, University of Illinois Urbana-Champaign\\
+    \textsuperscript{\rm 2} Informatics, University of Illinois Urbana-Champaign\\
+    , , yirenl2@illinois.edu, vtorvik@illinois.edu, 	ludaesch@illinois.edu
 }
-\fi
+% \fi
+
 
 
 % REMOVE THIS: bibentry
@@ -162,8 +157,9 @@
 
 \begin{abstract}
 \input{00abstract.tex}
+\vspace{-0.84cm}
 \end{abstract}
-
+\workshopnote{Accepted to Workshop on Knowledge Augmented Methods for Natural Language Processing, in conjunction with AAAI 2023.}
 
 \section{Introduction}
 \input{01introduction.tex}

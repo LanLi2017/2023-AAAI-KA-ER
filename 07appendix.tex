@@ -26,4 +26,39 @@ This paper includes two baseline models, i.e., RoBERTa without any knowledge inj
 In detail, Table~\ref{tab:dittoinject} shows the datasets and corresponding injection methods utilized by Ditto. "+ General" indicates that Ditto injects seven entity types into the corresponding dataset. The seven types include 'PERSON', 'ORG', 'LOC', 'PRODUCT', 'DATE', 'QUANTITY', and 'TIME'. "+ Product" indicates that Ditto annotates as 'PORODUCT', any entity mentions in the following types, i.e., 'NORP', 'GPE', 'LOC', 'PERSON', and 'PRODUCT'.
 
 \paragraph{C. Two-sided Paired T-test.}
-The two-sided paired T-test is implemented to test whether the predictions of different models are significantly different. 
+The two-sided paired T-test is implemented to test whether the predictions of different models are significantly different. We first compare whether the predicted label is equal to the ground-truth label. The value is 1 if the prediction is equal to the ground truth and 0 otherwise. And then, the paired T-test is conducted. 
+% \begin{table*}[!h]
+% \centering
+% \resizebox{\linewidth}{!}{
+% \begin{tabular}{l|ll|llll|l}
+% \hline
+% \multicolumn{1}{l|}{}                  & \multicolumn{2}{c|}{\textbf{Dirty}} & \multicolumn{4}{c|}{\textbf{Structured}}                      & \textbf{Textual} \\ \hline
+% \multicolumn{1}{l|}{\textbf{Models}} &
+%   \textbf{\begin{tabular}[l]{@{}l@{}}DBLP\\ -\\ GoogleScholar\end{tabular}} &
+%   \multicolumn{1}{c|}{\textbf{\begin{tabular}[l]{@{}l@{}}iTunes\\ -\\ Amazon\end{tabular}}} &
+%   \textbf{\begin{tabular}[l]{@{}l@{}}iTunes\\ -\\ Amazon\end{tabular}} &
+%   \textbf{\begin{tabular}[l]{@{}l@{}}Amazon\\ -\\ Google\end{tabular}} &
+%   \textbf{\begin{tabular}[l]{@{}l@{}}DBLP\\ -\\ ACM\end{tabular}} &
+%   \multicolumn{1}{l|}{\textbf{\begin{tabular}[l]{@{}l@{}}DBLP\\ -\\ GoogleScholar\end{tabular}}} &
+%   \textbf{\begin{tabular}[c]{@{}l@{}}Abt\\ -\\ Buy\end{tabular}} \\ \hline
+% RoBERTa                          & 95.81                             & 72.73                       & 61.76                       & 73.12                       & 98.77                   & 95.32                             & 88.41                                \\
+% Ditto                            & 95.54                             & 60.38                       & 47.06                       & 74.44                       & 98.55                   & 95.85                             & 88.89                                \\ \hline
+% KAER ( Roberta + CST )           & 95.47                             & 62.96                       & 80.70**++                   & 68.70                       & 98.77                   & 95.05                             & 92.27**++                            \\
+% KAER ( Roberta + CST + / )       & 95.74                             & 54.90*                      & \textbf{89.66**++}          & 74.85                       & \textbf{98.99}          & 95.14                             & \textbf{92.61**++}                   \\
+% KAER ( Roberta + CST + PCT)      & 95.20                             & 72.00                       & 57.14                       & \textbf{76.25}              & 98.09*                  & 95.62                             & 78.24**++                            \\
+% KAER ( Roberta + EL )            & 95.12                             & 50.00*                      & 61.54                       & 73.77                       & 98.54                   & 95.72                             & 89.11                                \\
+% KAER ( Roberta + EL + / )        & 95.75                             & \textbf{81.82}              & 86.21**++                   & 74.02                       & 98.43                   & \textbf{96.11*}                   & 88.19                                \\
+% KAER ( Roberta + EL + PCT)       & 94.80**+                          & 77.78+                      & 67.69                       & 75.63                       & 97.04**+                & 95.29                             & 73.80**++                            \\
+% KAER ( Roberta + CST + EL )      & \textbf{95.87}                    & 47.06*                      & 59.26                       & 72.28                       & 98.43                   & 95.65                             & 89.66                                \\
+% KAER ( Roberta + CST + EL + / )  & 95.63                             & 63.33*                      & 57.14+                      & 75.15                       & 98.34                   & 95.67                             & 89.81                                \\
+% KAER ( Roberta + CST + EL + PCT) & 94.24**++                         & 71.11+                      & 61.29                       & 71.37*                      & 96.26**++               & 94.93+                            & 67.20**++                            \\ \hline
+% \end{tabular}
+% }
+% \vspace{-0.2cm}
+% \caption{Experimental results using different knowledge injection methods, measured by F1 score. 
+% % 99\% and 95\% confidence level of hypothesis test (paired t-test).
+% The two baseline models: RoBERTa (without domain knowledge injection); and Ditto (RoBERTa and Ditto's general domain knowledge injection methods). 
+% % representing the baseline model, Ditto without knowledge injection, 
+% Other models represent KAER with various knowledge injection and prompting methods combined with RoBERTa. ``+CST'' indicates \textbf{C}olumn \textbf{S}emantic \textbf{T}ype injection.``+EL'' indicates knowledge injection with \textbf{E}ntity \textbf{L}inking. ``+/'' represents prompting with a slash. ``+PCT'' represents \textbf{P}rompting with \textbf{C}onstrained \textbf{T}uning, i.e., soft positions and visible matrix. The paired t-test is processed between KAER injections and two baseline models, i.e., RoBERTa(*) and Ditto(+). \textbf{**} and \textbf{++} represent 99\% confidence level, and \textbf{*} and \textbf{+} represent 95\% confidence level.}%significance level ($\alpha=0.05$).} 
+% \label{tab:injection_results}
+% \end{table*}
